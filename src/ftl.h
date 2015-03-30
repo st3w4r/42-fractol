@@ -57,13 +57,13 @@ void				ft_error_str_exit(char *str);
 **	Draw
 **	\file fdf_draw.c
 */
-void				draw_windows(char *title, int weight, int height, t_env *e);
+void			ftl_draw_windows(char *title, t_env *e);
 // void				draw_reload(t_env *e);
 
 /*
 **	Hook
 **	\file fdf_hook.c
 */
-int					key_hook(int keycode, t_env *e);
+int				ftl_key_hook(int keycode, t_env *e);
 
 #endif

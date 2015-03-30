@@ -12,12 +12,15 @@
 
 #include "ftl.h"
 
-void	draw_windows(char *title, int weight, int height, t_env *e)
+void	ftl_draw_windows(char *title, t_env *e)
 {
 	if (!(e->mlx = mlx_init()))
 		ft_error_str_exit("error mlx init.");
-	e->win = mlx_new_window(e->mlx, weight, height, title);
+	e->win = mlx_new_window(e->mlx, e->win_size_w, e->win_size_h, title);
 }
+
+
+
 /*
 void	draw_reload(t_env *e)
 {

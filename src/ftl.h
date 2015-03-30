@@ -22,6 +22,9 @@
 
 # include "../libft/includes/libft.h"
 
+# define FREE(x) { if (x) free(x); x = NULL; }
+# define FREE_ARR(x) { if (x && *x) ft_arrfree(&x); }
+
 # define WINDOW_SIZE_H 500
 # define WINDOW_SIZE_W 500
 

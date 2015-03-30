@@ -14,12 +14,13 @@
 
 static void	ftl_error_usage(void)
 {
-	ft_error_str_exit("usage: push_swap [-cvmn] [int_value ...]\n");
+	ft_error_str_exit("usage: fractol [name_fractol]\n");
 }
 
 
 int		main(int argc, char **argv)
 {
+	(void)argv;
 	if (argc == 2)
 	{
 

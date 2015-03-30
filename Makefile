@@ -11,23 +11,23 @@
 # **************************************************************************** #
 
 NAME = fractol
-PATH_SRC = ./
+PATH_SRC = ./src/
 PATH_OBJ = ./
 PATH_INC = ./libft/includes/
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -Ofast -I $(PATH_INC)
 
-LIBS = -lm -L libft/ -lft -L/usr/X11/lib -lmlx -lXext -lX11
+LIBS = -lm -L libft/ -lft -L/usr/X11/lib -lmlx -framework OpenGL -framework AppKit
 
-HEAD = fdf.h
+HEAD = $(PATH_SRC)ftl.h
 
 SRC =	main.c \
+		ft_error.c \
 		# parse_arg.c \
 		# ftl_draw.c \
 		# ftl_cal_matrice.c \
 		# ftl_matrice.c \
-		# ftl_error.c \
 		# ftl_hook.c \
 		# ftl_helper.c
 

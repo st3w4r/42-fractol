@@ -22,6 +22,27 @@
 
 # include "../libft/includes/libft.h"
 
+# define WINDOW_SIZE_H 500
+# define WINDOW_SIZE_W 500
+
+/*
+**	Key code
+*/
+# define KEY_ESC 53
+
+typedef struct	s_env {
+	void	*mlx;
+	void	*win;
+	void	*img;
+	char	*pixel_img;
+	int		bpp;
+	int		s_line;
+	int		ed;
+	int		win_size_h;
+	int		win_size_w;
+}				t_env;
+
+
 /*
 ** Name: ft_error
 ** File: ft_error.c
@@ -32,5 +53,17 @@ void				ft_malloc_error(void);
 void				ft_error_str(char *str);
 void				ft_error_str_exit(char *str);
 
+/*
+**	Draw
+**	\file fdf_draw.c
+*/
+void				draw_windows(char *title, int weight, int height, t_env *e);
+// void				draw_reload(t_env *e);
+
+/*
+**	Hook
+**	\file fdf_hook.c
+*/
+int					key_hook(int keycode, t_env *e);
 
 #endif

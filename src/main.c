@@ -12,18 +12,32 @@
 
 #include "ftl.h"
 
+int		expose_hook(t_env *e)
+{
+	// draw_reload(e);
+	return (0);
+}
+
 static void	ftl_error_usage(void)
 {
 	ft_error_str_exit("usage: fractol [name_fractol]\n");
 }
 
-
 int		main(int argc, char **argv)
 {
+	t_env *e;
+
 	(void)argv;
 	if (argc == 2)
 	{
-
+		if (!(e = (t_env*)malloc(sizeof(t_env))))
+			ft_malloc_error();
+		e->win_size_h = WINDOW_SIZE_H;
+		e->win_size_w = WINDOW_SIZE_W;
+		draw_windows("42 Fractol", e->win_size_w, e->win_size_h, e);
+		mlx_expose_hook(e->win, expose_hook, e);
+		mlx_hook(e->win, 2, 3, key_hook, e);
+		mlx_loop(e->mlx);
 	}
 	else
 		ftl_error_usage();

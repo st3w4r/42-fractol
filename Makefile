@@ -24,11 +24,11 @@ HEAD = $(PATH_SRC)ftl.h
 
 SRC =	main.c \
 		ft_error.c \
+		ftl_hook.c \
+		ftl_draw.c \
 		# parse_arg.c \
-		# ftl_draw.c \
 		# ftl_cal_matrice.c \
 		# ftl_matrice.c \
-		# ftl_hook.c \
 		# ftl_helper.c
 
 OBJ = $(addprefix $(PATH_SRC), $(SRC:.c=.o))

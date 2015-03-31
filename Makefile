@@ -17,7 +17,7 @@ PATH_INC = ./libft/includes/
 
 CC = cc
 # CFLAGS = -Wall -Wextra -Werror -Ofast -I $(PATH_INC)
-CFLAGS = -Ofast -I $(PATH_INC)
+CFLAGS = -Ofast -I $(PATH_INC) -g
 
 LIBS = -lm -L libft/ -lft -L/usr/X11/lib -lmlx -framework OpenGL -framework AppKit
 

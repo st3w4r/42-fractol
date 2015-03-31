@@ -26,7 +26,7 @@ void			ftl_draw_windows(char *title, t_env *e)
 
 void			ftl_draw_reload(t_env *e)
 {
-	e->img = mlx_new_image(e->mlx, e->win_size_w, e->win_size_w);
+	e->img = mlx_new_image(e->mlx, e->win_size_w, e->win_size_h);
 	e->pixel_img = mlx_get_data_addr(e->img, &(e->bpp), &(e->s_line), &(e->ed));
 	ftl_draw_fractal(e);
 	mlx_put_image_to_window(e->mlx, e->win, e->img, 0, 0);

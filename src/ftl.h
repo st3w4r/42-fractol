@@ -119,5 +119,11 @@ void			ftl_cal_apply(t_env *e, t_fractal *ftl, int (*f)(t_env*, t_fractal, t_poi
 void			ftl_fractal_init(t_env *e);
 int				ftl_fractal_mandelbrot(t_env *e, t_fractal ftl, t_point *point);
 
+/*
+**	Name: Helper
+**	File ftl_helper.c
+**	Desc: Function Helpers
+*/
+int				ftl_rgb_to_hexa(int r, int g, int b);
 
 #endif

@@ -29,10 +29,10 @@ SRC =	main.c \
 		ftl_draw.c \
 		ftl_cal.c \
 		ftl_fractal.c \
+		ftl_helper.c
 		# parse_arg.c \
 		# ftl_cal_matrice.c \
 		# ftl_matrice.c \
-		# ftl_helper.c
 
 OBJ = $(addprefix $(PATH_SRC), $(SRC:.c=.o))
 

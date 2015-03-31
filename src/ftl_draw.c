@@ -19,6 +19,10 @@ void	ftl_draw_windows(char *title, t_env *e)
 	e->win = mlx_new_window(e->mlx, e->win_size_w, e->win_size_h, title);
 }
 
+void	ftl_draw_fractal(t_env *e)
+{
+	
+}
 
 
 /*

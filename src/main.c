@@ -34,6 +34,7 @@ int		main(int argc, char **argv)
 			ft_malloc_error();
 		e->win_size_h = WINDOW_SIZE_H;
 		e->win_size_w = WINDOW_SIZE_W;
+		e->iter_max = ITERATION_MAX;
 		ftl_draw_windows("42 Fractol", e);
 		mlx_expose_hook(e->win, ftl_expose_hook, e);
 		mlx_hook(e->win, 2, 3, ftl_key_hook, e);

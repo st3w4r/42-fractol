@@ -12,19 +12,19 @@
 
 #include "ftl.h"
 
-void	ftl_cal_apply(t_env *e, int sx, int sy, int (*f)(int, int))
+void	ftl_cal_apply(t_env *e, int (*f)(t_env*, int, int))
 {
 	int x;
 	int y;
 	int color_pix;
 
 	y = 0;
-	while (y < sx)
+	while (y < e->win_size_h)
 	{
 		x = 0;
-		while (y < sy)
+		while (x < e->win_size_w)
 		{
-			color_pix = (*f)(y, x);
+			color_pix = (*f)(e, x, y);
 			++x;
 		}
 		++y;

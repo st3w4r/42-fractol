@@ -28,6 +28,9 @@
 # define WINDOW_SIZE_H 500
 # define WINDOW_SIZE_W 500
 
+# define ITERATION_MAX 50
+
+
 /*
 **	Key code
 */
@@ -43,8 +46,15 @@ typedef struct	s_env {
 	int		ed;
 	int		win_size_h;
 	int		win_size_w;
+	int		zoom_x;
+	int		zoom_y;
+	int		iter_max;
 }				t_env;
 
+typedef struct	s_complexe {
+	int		r;
+	int		i;
+}				t_complexe;
 
 /*
 ** Name: ft_error
@@ -57,16 +67,33 @@ void				ft_error_str(char *str);
 void				ft_error_str_exit(char *str);
 
 /*
-**	Draw
-**	\file fdf_draw.c
+**	Name: Draw
+**	File: fdf_draw.c
+**	Desc: All function Draw
 */
 void			ftl_draw_windows(char *title, t_env *e);
 // void				draw_reload(t_env *e);
 
 /*
-**	Hook
-**	\file fdf_hook.c
+**	Name: Hook
+**	File: fdf_hook.c
+**	Desc: All Hook event
 */
 int				ftl_key_hook(int keycode, t_env *e);
+
+/*
+**	Name: Calculate
+**	File: fdf_cal.c
+**	Desc: All functions calcul
+*/
+int				ftl_fractal_mandelbrot(t_env *e, int x, int y);
+
+/*
+**	Name: Fractal
+**	File: fdf_fractal.c
+**	Desc: All fucntions fractal
+*/
+int				ftl_fractal_mandelbrot(t_env *e, int x, int y);
+
 
 #endif

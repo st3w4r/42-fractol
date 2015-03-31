@@ -41,26 +41,40 @@ typedef struct	s_point {
 	double	y;
 }				t_point;
 
-
-typedef struct	s_env {
-	void	*mlx;
-	void	*win;
-	void	*img;
-	char	*pixel_img;
-	int		bpp;
-	int		s_line;
-	int		ed;
-	int		win_size_h;
-	int		win_size_w;
-	int		zoom_x;
-	int		zoom_y;
-	int		iter_max;
-}				t_env;
-
 typedef struct	s_complexe {
 	double	r;
 	double	i;
 }				t_complexe;
+
+typedef struct	s_fractal {
+	t_complexe	c;
+	t_complexe	z;
+	double		x1;
+	double		x2;
+	double		y1;
+	double		y2;
+	double		zoom_x;
+	double		zoom_y;
+	double		tmp;
+	int			iter;
+	int			iter_max;
+}				t_fractal;
+
+typedef struct	s_env {
+	void		*mlx;
+	void		*win;
+	void		*img;
+	char		*pixel_img;
+	int			bpp;
+	int			s_line;
+	int			ed;
+	int			win_size_h;
+	int			win_size_w;
+	// int			zoom_x;
+	// int			zoom_y;
+	// int		iter_max;
+	t_fractal	*ftl_arr;
+}				t_env;
 
 /*
 ** Name: ft_error
@@ -95,14 +109,15 @@ int				ftl_key_hook(int keycode, t_env *e);
 **	File: fdf_cal.c
 **	Desc: All functions calcul
 */
-void			ftl_cal_apply(t_env *e, int (*f)(t_env*, t_point*));
+void			ftl_cal_apply(t_env *e, t_fractal *ftl, int (*f)(t_env*, t_fractal, t_point*));
 
 /*
 **	Name: Fractal
 **	File: fdf_fractal.c
 **	Desc: All fucntions fractal
 */
-int				ftl_fractal_mandelbrot(t_env *e, t_point *point);
+void			ftl_fractal_init(t_env *e);
+int				ftl_fractal_mandelbrot(t_env *e, t_fractal ftl, t_point *point);
 
 
 #endif

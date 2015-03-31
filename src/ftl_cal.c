@@ -12,7 +12,7 @@
 
 #include "ftl.h"
 
-void	ftl_cal_apply(t_env *e, int (*f)(t_env*, t_point*))
+void	ftl_cal_apply(t_env *e, t_fractal *ftl, int (*f)(t_env*, t_fractal, t_point*))
 {
 	t_point	point;
 	int		color_pix;
@@ -23,7 +23,7 @@ void	ftl_cal_apply(t_env *e, int (*f)(t_env*, t_point*))
 		point.x = 0;
 		while (point.x < e->win_size_w)
 		{
-			color_pix = (*f)(e, &point);
+			color_pix = (*f)(e, *ftl, &point);
 			ftl_draw_pixel_img(&(point), e, color_pix);
 			++point.x;
 		}

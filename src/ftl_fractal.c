@@ -12,47 +12,43 @@
 
 #include "ftl.h"
 
-int		ftl_fractal_mandelbrot(t_env *e, t_point *point)
+void	ftl_fractal_init(t_env *e)
 {
-	double x1;
-	double x2;
-	double y1;
-	double y2;
-	double zoom_x;
-	double zoom_y;
-
-	x1 = -2.1;
-	x2 = 0.6;
-	y1 = -1.2;
-	y2 = 1.2;
-
-	zoom_x = e->win_size_w/(x2 - x1);
-	zoom_y = e->win_size_h/(y2 - y1);
-
-
-	t_complexe c;
-	t_complexe z;
-	double tmp;
-	double i;
-
-	c.r = point->x / zoom_x + x1;
-	c.i = point->y / zoom_y + y1;
-	z.r = 0;
-	z.i = 0;
-	i = 0;
-
-	while ((z.r * z.r + z.i * z.i) < 4 && (i < e->iter_max))
-	{
-		tmp = z.r;
-		z.r = z.r * z.r - z.i * z.i + c.r;
-		z.i = 2 * z.i * tmp + c.i;
-		i += 1;
-	}
-
-	if (i == e->iter_max)
-		return (255);
-	return (0);
+	if (!(e->ftl_arr = (t_fractal*)malloc(sizeof(t_fractal) * 3)))
+		ft_malloc_error();
+	//Params init Mandelbrot
+	e->ftl_arr[0] = (t_fractal){{0, 0}, {0, 0}, -2.1, 0.6, -1.2, 1.2,
+					e->win_size_w / (0.6 - (-2.1)),
+					e->win_size_h / (1.2 - (-1.2)), 0, 0, 50};
+	e->ftl_arr[1] = (t_fractal){{0, 0}, {0, 0}, -2.1, 0.6, -1.2, 1.2,
+					e->win_size_w / (0.6 - (-2.1)),
+					e->win_size_h / (1.2 - (-1.2)), 0, 0, 50};
+	e->ftl_arr[2] = (t_fractal){{0, 0}, {0, 0}, -2.1, 0.6, -1.2, 1.2,
+					e->win_size_w / (0.6 - (-2.1)),
+					e->win_size_h / (1.2 - (-1.2)), 0, 0, 50};
 }
+
+int		ftl_fractal_mandelbrot(t_env *e, t_fractal ftl, t_point *point)
+{
+	ftl.c.r = point->x / ftl.zoom_x + ftl.x1;
+	ftl.c.i = point->y / ftl.zoom_y + ftl.y1;
+	ftl.z.r = 0;
+	ftl.z.i = 0;
+	ftl.iter = 0;
+	while ((ftl.z.r * ftl.z.r + ftl.z.i * ftl.z.i) < 4 &&
+			(ftl.iter < ftl.iter_max))
+	{
+		ftl.tmp = ftl.z.r;
+		ftl.z.r = ftl.z.r * ftl.z.r - ftl.z.i * ftl.z.i + ftl.c.r;
+		ftl.z.i = 2 * ftl.z.i * ftl.tmp + ftl.c.i;
+		ftl.iter += 1;
+	}
+	if (ftl.iter == ftl.iter_max)
+		return (ftl.iter * 255 / ftl.iter_max);
+	return (ftl.iter_max);
+}
+
+// ftl.iter * 255 / ftl.iter_max
 
 /*
 // on définit la zone que l'on dessine. Ici, la fractale en entière

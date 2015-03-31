@@ -12,7 +12,7 @@
 
 #include "ftl.h"
 
-int		ftl_fractal_mandelbrot(t_env *e, int x, int y)
+int		ftl_fractal_mandelbrot(t_env *e, t_point *point)
 {
 	double x1;
 	double x2;
@@ -32,11 +32,11 @@ int		ftl_fractal_mandelbrot(t_env *e, int x, int y)
 
 	t_complexe c;
 	t_complexe z;
-	int tmp;
-	int i;
+	double tmp;
+	double i;
 
-	c.r = x / zoom_x + x1;
-	c.i = y / zoom_y + y1;
+	c.r = point->x / zoom_x + x1;
+	c.i = point->y / zoom_y + y1;
 	z.r = 0;
 	z.i = 0;
 	i = 0;
@@ -50,7 +50,7 @@ int		ftl_fractal_mandelbrot(t_env *e, int x, int y)
 	}
 
 	if (i == e->iter_max)
-		return (1);
+		return (255);
 	return (0);
 }
 

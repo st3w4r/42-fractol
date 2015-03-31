@@ -12,7 +12,7 @@
 
 #include "ftl.h"
 
-int	    key_hook(int keycode, t_env *e)
+int	    ftl_key_hook(int keycode, t_env *e)
 {
 	if (keycode == KEY_ESC)
 	{

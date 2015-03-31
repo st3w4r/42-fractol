@@ -12,21 +12,21 @@
 
 #include "ftl.h"
 
-void	ftl_cal_apply(t_env *e, int (*f)(t_env*, int, int))
+void	ftl_cal_apply(t_env *e, int (*f)(t_env*, t_point*))
 {
-	int x;
-	int y;
-	int color_pix;
+	t_point	point;
+	int		color_pix;
 
-	y = 0;
-	while (y < e->win_size_h)
+	point.y = 0;
+	while (point.y < e->win_size_h)
 	{
-		x = 0;
-		while (x < e->win_size_w)
+		point.x = 0;
+		while (point.x < e->win_size_w)
 		{
-			color_pix = (*f)(e, x, y);
-			++x;
+			color_pix = (*f)(e, &point);
+			ftl_draw_pixel_img(&(point), e, color_pix);
+			++point.x;
 		}
-		++y;
+		++point.y;
 	}
 }

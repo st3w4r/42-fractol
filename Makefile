@@ -27,6 +27,7 @@ SRC =	main.c \
 		ft_error.c \
 		ftl_hook.c \
 		ftl_draw.c \
+		ftl_cal.c \
 		ftl_fractal.c \
 		# parse_arg.c \
 		# ftl_cal_matrice.c \

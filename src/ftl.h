@@ -36,6 +36,12 @@
 */
 # define KEY_ESC 53
 
+typedef struct	s_point {
+	double	x;
+	double	y;
+}				t_point;
+
+
 typedef struct	s_env {
 	void	*mlx;
 	void	*win;
@@ -52,8 +58,8 @@ typedef struct	s_env {
 }				t_env;
 
 typedef struct	s_complexe {
-	int		r;
-	int		i;
+	double	r;
+	double	i;
 }				t_complexe;
 
 /*
@@ -71,7 +77,10 @@ void				ft_error_str_exit(char *str);
 **	File: fdf_draw.c
 **	Desc: All function Draw
 */
+// void			ftl_draw_fractal(t_env *e);
 void			ftl_draw_windows(char *title, t_env *e);
+void			ftl_draw_pixel_img(t_point *point, t_env *e, int color);
+void			ftl_draw_reload(t_env *e);
 // void				draw_reload(t_env *e);
 
 /*
@@ -86,14 +95,14 @@ int				ftl_key_hook(int keycode, t_env *e);
 **	File: fdf_cal.c
 **	Desc: All functions calcul
 */
-int				ftl_fractal_mandelbrot(t_env *e, int x, int y);
+void			ftl_cal_apply(t_env *e, int (*f)(t_env*, t_point*));
 
 /*
 **	Name: Fractal
 **	File: fdf_fractal.c
 **	Desc: All fucntions fractal
 */
-int				ftl_fractal_mandelbrot(t_env *e, int x, int y);
+int				ftl_fractal_mandelbrot(t_env *e, t_point *point);
 
 
 #endif

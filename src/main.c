@@ -14,7 +14,7 @@
 
 static int		ftl_expose_hook(t_env *e)
 {
-	// draw_reload(e);
+	ftl_draw_reload(e);
 	return (0);
 }
 

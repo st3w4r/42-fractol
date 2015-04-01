@@ -12,7 +12,7 @@
 
 #include "ftl.h"
 
-static	void	key_hook_change_fractal(int keycode, t_env *e)
+static	void	ftl_key_hook_change_fractal(int keycode, t_env *e)
 {
 	if (keycode == KEY_KP_1)
 		ftl_change_fractol("mandelbrot", e);
@@ -22,7 +22,10 @@ static	void	key_hook_change_fractal(int keycode, t_env *e)
 		ftl_change_fractol("autre", e);
 }
 
-// static	void	key_hook_change_
+static	void	ftl_key_hook_mouse(int keycode, t_env *e)
+{
+
+}
 
 int	    ftl_key_hook(int keycode, t_env *e)
 {
@@ -31,7 +34,7 @@ int	    ftl_key_hook(int keycode, t_env *e)
 		mlx_destroy_window(e->mlx, e->win);
 		exit(0);
 	}
-	key_hook_change_fractal(keycode, e);
+	ftl_key_hook_change_fractal(keycode, e);
 	ftl_draw_reload(e);
 	// key_hook_rotation(keycode, e);
 	// key_hook_translation(keycode, e);

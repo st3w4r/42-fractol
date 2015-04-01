@@ -23,9 +23,10 @@ void	ftl_fractal_init(t_env *e)
 				e->win_size_h / (1.2 + 1.2), 0, 0, 50, ftl_fractal_mandelbrot};
 	//Params init Julia
 	e->ftl_arr[1] = (t_fractal){{0.285, 0.01}, {0, 0},
-					-3.1, 0.6, -1.2, 1.2,
-				e->win_size_w / (0.6 + 3.1),
+					-1.5, 1.5, -1.2, 1.2,
+				e->win_size_w / (1.5 + 1.5),
 				e->win_size_h / (1.2 + 1.2), 0, 0, 150, ftl_fractal_julia};
+
 
 	e->ftl_arr[2] = (t_fractal){{0, 0}, {0, 0}, -2.1, 0.6, -1.2, 1.2,
 				e->win_size_w / (0.6 - (-2.1)),
@@ -67,6 +68,9 @@ int		ftl_fractal_julia(t_env *e, t_fractal ftl, t_point *point)
 		return (ftl_rgb_to_hexa(255, 255, 255));
 	return (ftl_rgb_to_hexa(0, 0, ftl.iter * 255 / ftl.iter_max));
 }
+
+// Julia
+// {1, -1.5, 1.5, -1.2, 1.2, -0.7, 0.27015, -0.7, 0.27015, 15, julia}};
 
 // ftl.iter * 255 / ftl.iter_max
 

@@ -15,13 +15,14 @@
 static	void	key_hook_change_fractal(int keycode, t_env *e)
 {
 	if (keycode == KEY_KP_1)
-		e->ftl_ptr = &(e->ftl_arr[0]);
+		ftl_change_fractol("mandelbrot", e);
 	else if (keycode == KEY_KP_2)
-		e->ftl_ptr = &(e->ftl_arr[1]);
+		ftl_change_fractol("julia", e);
 	else if (keycode == KEY_KP_3)
-		e->ftl_ptr = &(e->ftl_arr[2]);
+		ftl_change_fractol("autre", e);
 }
 
+// static	void	key_hook_change_
 
 int	    ftl_key_hook(int keycode, t_env *e)
 {

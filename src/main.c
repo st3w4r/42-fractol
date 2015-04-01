@@ -20,14 +20,13 @@ static int		ftl_expose_hook(t_env *e)
 
 static void	ftl_error_usage(void)
 {
-	ft_error_str_exit("usage: fractol [name_fractol]\n");
+	ft_error_str_exit("usage: fractol [mandelbrot, julia]\n");
 }
 
 int		main(int argc, char **argv)
 {
 	t_env *e;
 
-	(void)argv;
 	if (argc == 2)
 	{
 		if (!(e = (t_env*)malloc(sizeof(t_env))))
@@ -37,6 +36,7 @@ int		main(int argc, char **argv)
 		// e->iter_max = ITERATION_MAX;
 		ftl_draw_windows("42 Fractol", e);
 		ftl_fractal_init(e);
+		ftl_change_fractol(argv[1], e);
 		mlx_expose_hook(e->win, ftl_expose_hook, e);
 		mlx_hook(e->win, 2, 3, ftl_key_hook, e);
 		mlx_loop(e->mlx);

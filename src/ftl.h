@@ -143,5 +143,6 @@ int				ftl_fractal_julia(t_env *e, t_fractal ftl, t_point *point);
 **	Desc: Function Helpers
 */
 int				ftl_rgb_to_hexa(int r, int g, int b);
+void			ftl_change_fractol(char *name_ftl, t_env *e);
 
 #endif

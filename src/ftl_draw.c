@@ -14,7 +14,7 @@
 
 static void		ftl_draw_fractal(t_env *e)
 {
-	ftl_cal_apply(e, &(e->ftl_arr[0]), ftl_fractal_mandelbrot);
+	ftl_cal_apply(e, e->ftl_ptr, e->ftl_ptr->func);
 }
 
 void			ftl_draw_windows(char *title, t_env *e)

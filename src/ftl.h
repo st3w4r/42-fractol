@@ -36,6 +36,21 @@
 */
 # define KEY_ESC 53
 
+# define KEY_KP_DOT 65
+# define KEY_KP_ENTER 76
+# define KEY_KP_0 82
+# define KEY_KP_1 83
+# define KEY_KP_2 84
+# define KEY_KP_3 85
+# define KEY_KP_4 86
+# define KEY_KP_5 87
+# define KEY_KP_6 88
+# define KEY_KP_7 89
+# define KEY_KP_8 91
+# define KEY_KP_9 92
+# define KEY_KP_PLUS 69
+# define KEY_KP_MINUS 78
+
 typedef struct	s_point {
 	double	x;
 	double	y;
@@ -58,6 +73,7 @@ typedef struct	s_fractal {
 	double		tmp;
 	int			iter;
 	int			iter_max;
+	void		*func;
 }				t_fractal;
 
 typedef struct	s_env {
@@ -73,6 +89,7 @@ typedef struct	s_env {
 	// int			zoom_x;
 	// int			zoom_y;
 	// int		iter_max;
+	t_fractal	*ftl_ptr;
 	t_fractal	*ftl_arr;
 }				t_env;
 
@@ -118,6 +135,7 @@ void			ftl_cal_apply(t_env *e, t_fractal *ftl, int (*f)(t_env*, t_fractal, t_poi
 */
 void			ftl_fractal_init(t_env *e);
 int				ftl_fractal_mandelbrot(t_env *e, t_fractal ftl, t_point *point);
+int				ftl_fractal_julia(t_env *e, t_fractal ftl, t_point *point);
 
 /*
 **	Name: Helper

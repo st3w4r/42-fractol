@@ -36,6 +36,13 @@
 */
 # define KEY_ESC 53
 
+# define KEY_MOUSE_CLIC_L 1
+# define KEY_MOUSE_CLIC_R 2
+# define KEY_MOUSE_UP 5
+# define KEY_MOUSE_DOWN 4
+# define KEY_MOUSE_LEFT 7
+# define KEY_MOUSE_RIGhT 6
+
 # define KEY_KP_DOT 65
 # define KEY_KP_ENTER 76
 # define KEY_KP_0 82
@@ -51,6 +58,9 @@
 # define KEY_KP_PLUS 69
 # define KEY_KP_MINUS 78
 
+# define KEY_PAGE_UP 116
+# define KEY_PAGE_DOWN 121
+
 /*
 ** Key event, Key mask
 */
@@ -58,7 +68,6 @@
 # define MOTION_NOTIFY 6
 # define KEY_PRESS_MASK (1L<<0)
 # define KEY_PRESS 2
-
 
 typedef struct	s_point {
 	double	x;

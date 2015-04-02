@@ -38,7 +38,8 @@ int		main(int argc, char **argv)
 		ftl_fractal_init(e);
 		ftl_change_fractol(argv[1], e);
 		mlx_expose_hook(e->win, ftl_expose_hook, e);
-		mlx_hook(e->win, 2, 3, ftl_key_hook, e);
+		mlx_hook(e->win, KEY_PRESS, KEY_PRESS_MASK, ftl_key_hook, e);
+		mlx_hook(e->win, MOTION_NOTIFY, PTR_MOTION_MASK, ftl_motion_hook, e);
 		mlx_loop(e->mlx);
 	}
 	else

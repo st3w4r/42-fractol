@@ -25,7 +25,7 @@ void	ftl_fractal_init(t_env *e)
 	e->ftl_arr[1] = (t_fractal){{0.285, 0.01}, {0, 0},
 					-1.5, 1.5, -1.2, 1.2,
 				e->win_size_w / (1.5 + 1.5),
-				e->win_size_h / (1.2 + 1.2), 0, 0, 150, ftl_fractal_julia};
+				e->win_size_h / (1.2 + 1.2), 0, 0, 10, ftl_fractal_julia};
 
 
 	e->ftl_arr[2] = (t_fractal){{0, 0}, {0, 0}, -2.1, 0.6, -1.2, 1.2,
@@ -65,7 +65,7 @@ int		ftl_fractal_julia(t_env *e, t_fractal ftl, t_point *point)
 		ftl.iter += 1;
 	}
 	if (ftl.iter == ftl.iter_max)
-		return (ftl_rgb_to_hexa(255, 255, 255));
+		return (ftl_rgb_to_hexa(255, 0, 255));
 	return (ftl_rgb_to_hexa(0, 0, ftl.iter * 255 / ftl.iter_max));
 }
 

@@ -19,7 +19,7 @@ CC = cc
 # CFLAGS = -Wall -Wextra -Werror -Ofast -I $(PATH_INC)
 CFLAGS = -Ofast -I $(PATH_INC) -g
 
-LIBS = -lm -L libft/ -lft -L/usr/X11/lib -lmlx -framework OpenGL -framework AppKit
+LIBS = -lm -L libft/ -lft -lmlx -framework OpenGL -framework AppKit
 
 HEAD = $(PATH_SRC)ftl.h
 

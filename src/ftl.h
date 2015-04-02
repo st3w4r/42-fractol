@@ -51,6 +51,15 @@
 # define KEY_KP_PLUS 69
 # define KEY_KP_MINUS 78
 
+/*
+** Key event, Key mask
+*/
+# define PTR_MOTION_MASK (1L<<6)
+# define MOTION_NOTIFY 6
+# define KEY_PRESS_MASK (1L<<0)
+# define KEY_PRESS 2
+
+
 typedef struct	s_point {
 	double	x;
 	double	y;
@@ -119,6 +128,8 @@ void			ftl_draw_reload(t_env *e);
 **	File: fdf_hook.c
 **	Desc: All Hook event
 */
+int				ftl_mouse_hook(int button, int x,int y, t_env *e);
+int				ftl_motion_hook(int x,int y, t_env *e);
 int				ftl_key_hook(int keycode, t_env *e);
 
 /*

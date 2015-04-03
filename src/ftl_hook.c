@@ -121,7 +121,8 @@ int				ftl_key_hook(int keycode, t_env *e)
 		ftl_color_change(0, e);
 	else if (keycode == KEY_2)
 		ftl_color_change(1, e);
-
+	else if (keycode == KEY_3)
+		ftl_color_change(2, e);
 	// else if (keycodre == KEY_)
 	// ft_putnbr(e->ftl_ptr->iter);
 	ftl_key_hook_change_fractal(keycode, e);

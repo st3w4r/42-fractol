@@ -45,6 +45,7 @@ int				main(int argc, char **argv)
 	// e->iter_max = ITERATION_MAX;
 	ftl_draw_windows("42 Fractol", e);
 	ftl_fractal_init(e);
+	ftl_color_init(e);
 	ftl_change_fractol(argv[1], e);
 	mlx_expose_hook(e->win, ftl_expose_hook, e);
 	mlx_mouse_hook(e->win, ftl_mouse_hook, e);

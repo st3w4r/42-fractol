@@ -30,7 +30,6 @@
 
 # define ITERATION_MAX 50
 
-
 /*
 **	Key code
 */
@@ -42,6 +41,17 @@
 # define KEY_MOUSE_DOWN 4
 # define KEY_MOUSE_LEFT 7
 # define KEY_MOUSE_RIGhT 6
+
+# define KEY_0 29
+# define KEY_1 18
+# define KEY_2 19
+# define KEY_3 20
+# define KEY_4 21
+# define KEY_5 23
+# define KEY_6 22
+# define KEY_7 26
+# define KEY_8 28
+# define KEY_9 25
 
 # define KEY_KP_DOT 65
 # define KEY_KP_ENTER 76
@@ -79,6 +89,20 @@ typedef struct	s_complexe {
 	double	i;
 }				t_complexe;
 
+typedef struct	s_palette {
+	int			color_default;
+	int			color_0;
+	int			color_1;
+	int			color_2;
+	int			color_3;
+	int			color_4;
+	int			color_5;
+	int			color_6;
+	int			color_7;
+	int			color_8;
+	int			color_9;
+}				t_palette;
+
 typedef struct	s_fractal {
 	t_complexe	c;
 	t_complexe	z;
@@ -104,12 +128,14 @@ typedef struct	s_env {
 	int			ed;
 	int			win_size_h;
 	int			win_size_w;
-	// int			zoom_x;
-	// int			zoom_y;
+	// int			clic_zoom_x;
+	// int			clic_zoom_y;
 	// int		iter_max;
 	int			stop_motion;
 	t_fractal	*ftl_ptr;
 	t_fractal	*ftl_arr;
+	t_palette	*p_color_ptr;
+	t_palette	*p_color_arr;
 }				t_env;
 
 /*
@@ -165,5 +191,9 @@ int				ftl_fractal_julia(t_env *e, t_fractal ftl, t_point *point);
 */
 int				ftl_rgb_to_hexa(int r, int g, int b);
 void			ftl_change_fractol(char *name_ftl, t_env *e);
+void			ftl_color_init(t_env *e);
+void			ftl_color_change(int num, t_env *e);
+int				ftl_get_color(int z, t_palette palette);
+
 
 #endif

@@ -48,8 +48,9 @@ int		ftl_fractal_mandelbrot(t_env *e, t_fractal ftl, t_point *point)
 		ftl.iter += 1;
 	}
 	if (ftl.iter == ftl.iter_max)
-		return (ftl_rgb_to_hexa(0, 0, 0));
-	return (ftl_rgb_to_hexa(0, 0, ftl.iter * 255 / ftl.iter_max));
+		return (ftl_get_color(ftl.iter_max, *(e->p_color_ptr)));
+	return (ftl_get_color(ftl.iter, *(e->p_color_ptr)));
+	// return (ftl_rgb_to_hexa(0, 0, ftl.iter * 255 / ftl.iter_max));
 }
 
 int		ftl_fractal_julia(t_env *e, t_fractal ftl, t_point *point)
@@ -66,7 +67,8 @@ int		ftl_fractal_julia(t_env *e, t_fractal ftl, t_point *point)
 	}
 	if (ftl.iter == ftl.iter_max)
 		return (ftl_rgb_to_hexa(255, 0, 255));
-	return (ftl_rgb_to_hexa(0, 0, ftl.iter * 255 / ftl.iter_max));
+	return (ftl_get_color(ftl.iter, *(e->p_color_ptr)));
+	// return (ftl_rgb_to_hexa(0, 0, ftl.iter * 255 / ftl.iter_max));
 }
 
 // Julia

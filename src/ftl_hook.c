@@ -26,13 +26,25 @@ static	void	ftl_key_hook_scale(int keycode, t_env *e)
 {
 	if (keycode == KEY_KP_PLUS)
 	{
-		e->ftl_ptr->zoom_x += 10;
-		e->ftl_ptr->zoom_y += 10;
+		// e->ftl_ptr->zoom_x += 10;
+		// e->ftl_ptr->zoom_y += 10;
+
+		e->ftl_ptr->x1 *= 0.75;
+		e->ftl_ptr->x2 *= 0.75;
+		e->ftl_ptr->y1 *= 0.75;
+		e->ftl_ptr->y2 *= 0.75;
+		e->ftl_ptr->zoom_x = (double)e->win_size_w/(double)(e->ftl_ptr->x2 - e->ftl_ptr->x1);
+		e->ftl_ptr->zoom_y = (double)e->win_size_h/(double)(e->ftl_ptr->y2 - e->ftl_ptr->y1);
+
 	}
 	else if (keycode == KEY_KP_MINUS)
 	{
-		e->ftl_ptr->zoom_x -= 10;
-		e->ftl_ptr->zoom_y -= 10;
+		e->ftl_ptr->x1 *= 1.25;
+		e->ftl_ptr->x2 *= 1.25;
+		e->ftl_ptr->y1 *= 1.25;
+		e->ftl_ptr->y2 *= 1.25;
+		e->ftl_ptr->zoom_x = (double)e->win_size_w/(double)(e->ftl_ptr->x2 - e->ftl_ptr->x1);
+		e->ftl_ptr->zoom_y = (double)e->win_size_h/(double)(e->ftl_ptr->y2 - e->ftl_ptr->y1);
 	}
 }
 
@@ -46,29 +58,21 @@ int				ftl_mouse_hook(int button, int x,int y, t_env *e)
 
 	if (button == KEY_MOUSE_UP)
 	{
-		// x1 = x-h,
-		// x2 = x+h,
-		// y1 = y-h
-		// y2 = y+h
-
-		e->ftl_ptr->x1 = x - e->win_size_h;
-		e->ftl_ptr->x2 = x + e->win_size_h;
-		e->ftl_ptr->y1 = y - e->win_size_h;
-		e->ftl_ptr->y2 = y + e->win_size_h;
-
-		// e->ftl_ptr->zoom_x += 10 * x;
-		// e->ftl_ptr->zoom_y += 10 * y;
+		e->ftl_ptr->x1 *= 0.75;
+		e->ftl_ptr->x2 *= 0.75;
+		e->ftl_ptr->y1 *= 0.75;
+		e->ftl_ptr->y2 *= 0.75;
+		e->ftl_ptr->zoom_x = (double)e->win_size_w/(double)(e->ftl_ptr->x2 - e->ftl_ptr->x1);
+		e->ftl_ptr->zoom_y = (double)e->win_size_h/(double)(e->ftl_ptr->y2 - e->ftl_ptr->y1);
 	}
 	else if (button == KEY_MOUSE_DOWN)
 	{
-		/*
-		e->ftl_ptr->x1 = x - e->win_size_h;
-		e->ftl_ptr->x2 = x + e->win_size_h;
-		e->ftl_ptr->y1 = y - e->win_size_h;
-		e->ftl_ptr->y2 = y + e->win_size_h;
-*/
-		e->ftl_ptr->zoom_x -= 10 * x;
-		e->ftl_ptr->zoom_y -= 10 * y;
+		e->ftl_ptr->x1 *= 1.25;
+		e->ftl_ptr->x2 *= 1.25;
+		e->ftl_ptr->y1 *= 1.25;
+		e->ftl_ptr->y2 *= 1.25;
+		e->ftl_ptr->zoom_x = (double)e->win_size_w/(double)(e->ftl_ptr->x2 - e->ftl_ptr->x1);
+		e->ftl_ptr->zoom_y = (double)e->win_size_h/(double)(e->ftl_ptr->y2 - e->ftl_ptr->y1);
 	}
 	ftl_draw_reload(e);
 	return (0);
@@ -76,7 +80,8 @@ int				ftl_mouse_hook(int button, int x,int y, t_env *e)
 
 int				ftl_motion_hook(int x, int y, t_env *e)
 {
-	if (x >= 0 && y >= 0 && x <= e->win_size_w && y <= e->win_size_h)
+	if (x >= 0 && y >= 0 && x <= e->win_size_w && y <= e->win_size_h
+		&& e->stop_motion)
 	{
 		// e->ftl_ptr->c.r = x * 0.2 + y * 0.2;
 		e->ftl_ptr->c.r = (double)x / (double)e->win_size_w * 4 - 2;
@@ -105,6 +110,8 @@ int				ftl_key_hook(int keycode, t_env *e)
 		mlx_destroy_window(e->mlx, e->win);
 		exit(0);
 	}
+	else if (keycode == KEY_KP_0)
+		e->stop_motion = !(e->stop_motion);
 	else if (keycode == KEY_PAGE_UP)
 		e->ftl_ptr->iter_max += 5;
 	else if (keycode == KEY_PAGE_DOWN)

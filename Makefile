@@ -19,7 +19,7 @@ CC = cc
 # CFLAGS = -Wall -Wextra -Werror -Ofast -I $(PATH_INC)
 CFLAGS = -Ofast -I $(PATH_INC) -g
 
-LIBS = -lm -L libft/ -lft -lmlx -framework OpenGL -framework AppKit
+LIBS = -lm -L libft/ -lft -L minilibx_macos/ -lmlx -framework OpenGL -framework AppKit
 
 HEAD = $(PATH_SRC)ftl.h
 
@@ -40,6 +40,7 @@ OBJ = $(addprefix $(PATH_SRC), $(SRC:.c=.o))
 all: $(NAME)
 
 $(NAME): $(OBJ) $(HEAD)
+	make -C minilibx_macos/
 	make -C libft/
 	$(CC) $(OBJ) -o $(NAME) $(LIBS)
 

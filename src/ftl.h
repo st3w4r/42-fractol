@@ -13,7 +13,7 @@
 #ifndef FTL_H
 # define FTL_H
 
-# include <mlx.h>
+# include "../minilibx_macos/mlx.h"
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
@@ -107,6 +107,7 @@ typedef struct	s_env {
 	// int			zoom_x;
 	// int			zoom_y;
 	// int		iter_max;
+	int			stop_motion;
 	t_fractal	*ftl_ptr;
 	t_fractal	*ftl_arr;
 }				t_env;

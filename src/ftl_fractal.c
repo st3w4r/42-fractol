@@ -50,7 +50,7 @@ int		ftl_fractal_mandelbrot(t_env *e, t_fractal ftl, t_point *point)
 	if (ftl.iter == ftl.iter_max)
 		return (ftl_get_color(100, *(e->p_color_ptr)));
 	return (ftl_get_color((ftl.iter * ftl.iter) * 0.1, *(e->p_color_ptr)));
-	// return (ftl_rgb_to_hexa(0, 0, ftl.iter * 255 / ftl.iter_max));
+	// return (ftl_create_rgb(0, 0, ftl.iter * 255 / ftl.iter_max));
 }
 
 int		ftl_fractal_julia(t_env *e, t_fractal ftl, t_point *point)
@@ -67,8 +67,9 @@ int		ftl_fractal_julia(t_env *e, t_fractal ftl, t_point *point)
 	}
 	if (ftl.iter == ftl.iter_max)
 		return (ftl_get_color(100, *(e->p_color_ptr)));
-	return (ftl_get_color((ftl.iter * ftl.iter) * 0.1, *(e->p_color_ptr)));
-	// return (ftl_rgb_to_hexa(0, 0, ftl.iter * 255 / ftl.iter_max));
+	return (ftl_create_rgb(0, ftl.iter * 255 / ftl.iter_max, ftl.iter * 255 / ftl.iter_max));
+	// return (ftl_get_color((ftl.iter * 255 / ftl.iter_max) * 0.1, *(e->p_color_ptr)));
+	// return (ftl_get_color((ftl.iter * ftl.iter) / 100, *(e->p_color_ptr)));
 }
 
 // Julia
@@ -84,6 +85,11 @@ int		ftl_fractal_julia(t_env *e, t_fractal ftl, t_point *point)
 /*
 définir x1 = -1
 définir x2 = 1
+
+
+
+
+
 définir y1 = -1.2
 définir y2 = 1.2
 définir zoom = 100

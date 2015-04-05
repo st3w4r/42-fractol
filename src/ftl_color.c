@@ -29,8 +29,8 @@ void	ftl_color_init(t_env *e)
 		0x262473, 0x0A3BB0, 0xD94A39, 0x403231, 0x8C5AA6, 0x8BB16C, 0xD9C860};
 	e->p_color_arr[1] = (t_palette){0x7AE0F2, 0x752859, 0xF29CD4, 0xA65A8B,
 		0x25591F, 0x62A65A, 0x78EDF2, 0x337073, 0xA65A8B, 0x7AF2B5, 0x337352};
-	e->p_color_arr[2] = (t_palette){0x3042a1, 0x6e7abd, 0x3042a1, 0x6e7abd,
-		0x3042a1, 0x6e7abd, 0x3042a1, 0x6e7abd, 0x3042a1, 0x6e7abd, 0x3042a1};
+	e->p_color_arr[2] = (t_palette){0x3042a1, 0x3042a1, 0x3042a1, 0x3042a1,
+		0x3042a1, 0x3042a1, 0x3042a1, 0x3042a1, 0x3042a1, 0x3042a1, 0x3042a1};
 	e->p_color_ptr = &(e->p_color_arr[0]);
 }
 
@@ -62,6 +62,38 @@ int		ftl_get_color(int z, t_palette palette)
 		color = palette.color_default;
 	return (color);
 }
+/*
+int		ftl_get_color(int z, t_palette palette)
+{
+	int color;
+
+	// ft_putnbr(z);
+	// ft_putstr(" ");
+
+	if (z < 0)
+		color = ftl_create_rgb((z * 255) / 100, 0, 0);
+	else if (z >= 0 && z < 10)
+		color = ftl_create_rgb((z * 255) / 100, (z * 255) / 100, 0);
+	else if (z >= 0 && z < 10)
+		color = ftl_create_rgb(0, (z * 255) / 100, 0);
+	else if (z >= 10 && z < 20)
+		color = ftl_create_rgb((z * 255) / 100, 0, 0);
+	else if (z >= 20 && z < 50)
+		color = ftl_create_rgb(0, (z * 255) / 100, 0);
+	else if (z >= 50 && z < 60)
+		color = ftl_create_rgb((z * 255) / 100, 0, 0);
+	else if (z >= 60 && z < 70)
+		color = ftl_create_rgb(0, 0, (z * 255) / 100);
+	else if (z >= 70 && z < 80)
+		color = ftl_create_rgb((z * 255) / 100, 0, (z * 255) / 100);
+	else if (z >= 80 && z < 90)
+		color = ftl_create_rgb((z * 255) / 100, (z * 255) / 100, (z * 255) / 100);
+	else if (z >= 90)
+		color = palette.color_9;
+	else
+		color = palette.color_default;
+	return (color);
+}*/
 
 int		ftl_color_fade(int z, int color1, int color2)
 {
@@ -85,8 +117,19 @@ int		ftl_color_fade(int z, int color1, int color2)
 	g2 = color2 >> 8;
 	b2 = color2 >> 16;
 
-	dr = (r2 - r1) / 255;
-	dg = (g2 - g1) / 255;
-	db = (b2 - b1) / 255;
+	// dr = (r2 - r1) / 255;
+	// dg = (g2 - g1) / 255;
+	// db = (b2 - b1) / 255;
+
+	dr = (z * 255) / 100;
+	dg = (z * 255) / 100;
+	db = (z * 255) / 100;
+
+	dr = 0;
+	// dr = r1  / 255;
+	// dg = 0;
+	// dg = g1 / 255;
+	// db = 0;
+	// db = b1 / 255;
 	return ftl_create_rgb(dr, dg, db);
 }

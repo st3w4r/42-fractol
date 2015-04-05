@@ -71,6 +71,11 @@
 # define KEY_PAGE_UP 116
 # define KEY_PAGE_DOWN 121
 
+# define KEY_UP 126
+# define KEY_DOWN 125
+# define KEY_LEFT 123
+# define KEY_RIGHT 124
+
 /*
 ** Key event, Key mask
 */

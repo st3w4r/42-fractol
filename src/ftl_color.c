@@ -93,8 +93,8 @@ int		ftl_get_color(int z, t_palette palette)
 	else
 		color = palette.color_default;
 	return (color);
-}*/
-
+}
+*/
 int		ftl_color_fade(int z, int color1, int color2)
 {
 	int r1;
@@ -125,7 +125,10 @@ int		ftl_color_fade(int z, int color1, int color2)
 	dg = (z * 255) / 100;
 	db = (z * 255) / 100;
 
-	dr = 0;
+	dr = r1;
+	dg = g1;
+	db = b1;
+
 	// dr = r1  / 255;
 	// dg = 0;
 	// dg = g1 / 255;

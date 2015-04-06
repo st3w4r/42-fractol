@@ -19,7 +19,9 @@ static	void	ftl_key_hook_change_fractal(int keycode, t_env *e)
 	else if (keycode == KEY_KP_2)
 		ftl_change_fractol("julia", e);
 	else if (keycode == KEY_KP_3)
-		ftl_change_fractol("autre", e);
+		ftl_change_fractol("carpet", e);
+	else if (keycode == KEY_KP_4)
+		ftl_change_fractol("b_ship", e);
 }
 
 static	void	ftl_key_hook_scale(int keycode, t_env *e)
@@ -48,11 +50,8 @@ static	void	ftl_key_hook_translation(int keycode, t_env *e)
 {
 	if (keycode == KEY_UP)
 	{
-		// e->ftl_ptr->x1 += 1.25;
-		// e->ftl_ptr->x2 *= 1.25;
 		e->ftl_ptr->y1 += 10 / e->ftl_ptr->zoom_x;
 		e->ftl_ptr->y2 += 10 / e->ftl_ptr->zoom_x;
-		// e->ftl_ptr->y2 += 1.1;
 	}
 	else if (keycode == KEY_DOWN)
 	{
@@ -63,21 +62,19 @@ static	void	ftl_key_hook_translation(int keycode, t_env *e)
 	{
 		e->ftl_ptr->x1 += 10 / e->ftl_ptr->zoom_x;
 		e->ftl_ptr->x2 += 10 / e->ftl_ptr->zoom_x;
-
 	}
 	else if (keycode == KEY_RIGHT)
 	{
 		e->ftl_ptr->x1 -= 10 / e->ftl_ptr->zoom_y;
 		e->ftl_ptr->x2 -= 10 / e->ftl_ptr->zoom_y;
-
 	}
 }
 
 
 int				ftl_mouse_hook(int button, int x,int y, t_env *e)
 {
-	ft_putnbr((e->ftl_ptr->x2));
-	ft_putstr("x: ");
+	// ft_putnbr((e->ftl_ptr->x2));
+	// ft_putstr("x: ");
 	// ft_putnbr(x);
 	// ft_putstr("y: ");
 	// ft_putnbr(y);

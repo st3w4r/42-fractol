@@ -23,4 +23,8 @@ void	ftl_change_fractol(char *name_ftl, t_env *e)
 		e->ftl_ptr = &(e->ftl_arr[0]);
 	else if (ft_strcmp("julia", name_ftl) == 0)
 		e->ftl_ptr = &(e->ftl_arr[1]);
+	else if (ft_strcmp("carpet", name_ftl) == 0)
+		e->ftl_ptr = &(e->ftl_arr[2]);
+	else if (ft_strcmp("b_ship", name_ftl) == 0)
+		e->ftl_ptr = &(e->ftl_arr[3]);
 }

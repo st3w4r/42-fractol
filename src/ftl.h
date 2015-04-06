@@ -25,8 +25,8 @@
 # define FREE(x) { if (x) free(x); x = NULL; }
 # define FREE_ARR(x) { if (x && *x) ft_arrfree(&x); }
 
-# define WINDOW_SIZE_H 500
-# define WINDOW_SIZE_W 500
+# define WINDOW_SIZE_H 729
+# define WINDOW_SIZE_W 729
 
 # define ITERATION_MAX 50
 
@@ -188,6 +188,8 @@ void			ftl_cal_apply(t_env *e, t_fractal *ftl, int (*f)(t_env*, t_fractal, t_poi
 void			ftl_fractal_init(t_env *e);
 int				ftl_fractal_mandelbrot(t_env *e, t_fractal ftl, t_point *point);
 int				ftl_fractal_julia(t_env *e, t_fractal ftl, t_point *point);
+int				ftl_fractal_carpet(t_env *e, t_fractal ftl, t_point *point);
+int				ftl_fractal_b_ship(t_env *e, t_fractal ftl, t_point *point);
 
 /*
 **	Name: Helper

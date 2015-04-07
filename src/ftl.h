@@ -207,6 +207,5 @@ void			ftl_change_fractol(char *name_ftl, t_env *e);
 void			ftl_color_init(t_env *e);
 void			ftl_color_change(int num, t_env *e);
 int				ftl_get_color(int z, t_palette palette);
-int				ftl_color_fade(int z, int color1, int color2);
 
 #endif

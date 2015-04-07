@@ -60,6 +60,8 @@ static	void	ftl_key_hook_translation(int keycode, t_env *e)
 
 int				ftl_mouse_hook(int button, int x, int y, t_env *e)
 {
+	(void)x;
+	(void)y;
 	if (button == KEY_MOUSE_UP)
 	{
 		e->ftl_ptr->x1 *= 0.75;

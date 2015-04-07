@@ -72,6 +72,7 @@ int		ftl_fractal_carpet(t_env *e, t_fractal ftl, t_point *point)
 	int x;
 	int y;
 
+	(void)ftl;
 	x = point->x;
 	y = point->y;
 	while (x > 0 || y > 0)
@@ -86,6 +87,7 @@ int		ftl_fractal_carpet(t_env *e, t_fractal ftl, t_point *point)
 
 int		ftl_fractal_b_ship(t_env *e, t_fractal ftl, t_point *point)
 {
+	(void)e;
 	ftl.c.r = point->x / ftl.zoom_x + ftl.x1;
 	ftl.c.i = point->y / ftl.zoom_y + ftl.y1;
 	while ((ftl.z.r * ftl.z.r + ftl.z.i * ftl.z.i) < 4 &&

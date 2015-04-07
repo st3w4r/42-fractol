@@ -44,7 +44,6 @@ int				main(int argc, char **argv)
 	e->win_size_h = WINDOW_SIZE_H;
 	e->win_size_w = WINDOW_SIZE_W;
 	e->stop_motion = 1;
-	// e->iter_max = ITERATION_MAX;
 	ftl_draw_windows("42 Fractol", e);
 	ftl_fractal_init(e);
 	ftl_color_init(e);

@@ -34,220 +34,33 @@ void	ftl_color_init(t_env *e)
 	e->p_color_arr[3] = (t_palette){0xFFFFFF, 0xEEEEEE, 0x000000, 0xCCCCCC,
 		0xBBBBBB, 0xAAAAAA, 0x999999, 0x888888, 0x777777, 0x666666, 0x555555};
 	e->p_color_ptr = &(e->p_color_arr[0]);
-	// e->p_color_arr[2] = (t_palette){0x3042a1, 0x3042a1, 0x3042a1, 0x3042a1,
-		// 0x3042a1, 0x3042a1, 0x3042a1, 0x3042a1, 0x3042a1, 0x3042a1, 0x3042a1};
-/*
-		e->p_color_arr[2] = (t_palette){
-		0x346699,
-		0x2e5b89,
-		0x29517a,
-		0x24476b,
-		0x346699,
-		0x4875a3,
-		0x5c84ad,
-		0x7093b7,
-		0x85a3c1,
-		0xeaeff4,
-		0xc2d1e0};*/
-
 }
-/*
+
 int		ftl_get_color(int z, t_palette palette)
 {
 	int color;
 
 	z = sin(z) * 100;
+	color = palette.color_default;
 	if (z < 0)
-		color = ftl_color_fade(z, palette.color_0,  palette.color_1);
+		color = palette.color_0;
 	else if (z >= 0 && z < 10)
-		color = ftl_color_fade(z, palette.color_1,  palette.color_2);
+		color = palette.color_1;
 	else if (z >= 0 && z < 10)
-		color = ftl_color_fade(z, palette.color_2,  palette.color_3);
+		color = palette.color_2;
 	else if (z >= 10 && z < 20)
-		color = ftl_color_fade(z, palette.color_3,  palette.color_4);
+		color = palette.color_3;
 	else if (z >= 20 && z < 50)
-		color = ftl_color_fade(z, palette.color_4,  palette.color_5);
+		color = palette.color_4;
 	else if (z >= 50 && z < 60)
-		color = ftl_color_fade(z, palette.color_5,  palette.color_6);
+		color = palette.color_5;
 	else if (z >= 60 && z < 70)
-		color = ftl_color_fade(z, palette.color_6,  palette.color_7);
+		color = palette.color_6;
 	else if (z >= 70 && z < 80)
-		color = ftl_color_fade(z, palette.color_7,  palette.color_8);
+		color = palette.color_7;
 	else if (z >= 80 && z < 90)
-		color = ftl_color_fade(z, palette.color_8,  palette.color_9);
+		color = palette.color_8;
 	else if (z >= 90)
 		color = palette.color_9;
-	else
-		color = palette.color_default;
 	return (color);
 }
-*/
-int		ftl_get_color(int z, t_palette palette)
-{
-	int color;
-
-	z = sin(z) * 100;
-	if (z < 0)
-		color =  palette.color_0;
-	else if (z >= 0 && z < 10)
-		color =  palette.color_1;
-	else if (z >= 0 && z < 10)
-		color =  palette.color_2;
-	else if (z >= 10 && z < 20)
-		color =  palette.color_3;
-	else if (z >= 20 && z < 50)
-		color =  palette.color_4;
-	else if (z >= 50 && z < 60)
-		color =  palette.color_5;
-	else if (z >= 60 && z < 70)
-		color =  palette.color_6;
-	else if (z >= 70 && z < 80)
-		color =  palette.color_7;
-	else if (z >= 80 && z < 90)
-		color =  palette.color_8;
-	else if (z >= 90)
-		color = palette.color_9;
-	else
-		color = palette.color_default;
-	return (color);
-}
-
-int		ftl_get_color2(int z, int z_max, t_palette palette)
-{
-	int color;
-
-	// z = sin(z) * 100;
-	// ft_putnbr(z);
-	// ft_putstr(" ");
-	if (z < 0)
-		color = ftl_create_rgb(0, 0, z * 255 / z_max);
-	else if (z >= 0 && z < 50)
-		color = ftl_create_rgb(z * 255 / z_max, 0, 0);
-	else if (z >= 50)
-		color = ftl_create_rgb(0, z * 255 / z_max, z * 255 / z_max);
-	else
-		color = ftl_create_rgb(z * 255 / z_max, 0, 0);
-	return (color);
-}
-/*
-int		ftl_color_fade2(int z, int color1, int color2)
-{
-
-}*/
-
-
-/*
-int		ftl_get_color(int z, t_palette palette)
-{
-	int color;
-
-	z = sin(z) * 100;
-	// ft_putnbr(z);
-	// ft_putstr(" ");
-	if (z < 0)
-		color = ftl_color_fade(z, palette.color_0);
-	else if (z >= 0 && z < 10)
-		color = ftl_color_fade(z, palette.color_1);
-	else if (z >= 0 && z < 10)
-		color = ftl_color_fade(z, palette.color_2);
-	else if (z >= 10 && z < 20)
-		color = ftl_color_fade(z, palette.color_3);
-	else if (z >= 20 && z < 50)
-		color = ftl_color_fade(z, palette.color_4);
-	else if (z >= 50 && z < 60)
-		color = ftl_color_fade(z, palette.color_5);
-	else if (z >= 60 && z < 70)
-		color = ftl_color_fade(z, palette.color_6);
-	else if (z >= 70 && z < 80)
-		color = ftl_color_fade(z, palette.color_7);
-	else if (z >= 80 && z < 90)
-		color = ftl_color_fade(z, palette.color_8);
-	else if (z >= 90)
-		color = ftl_color_fade(z, palette.color_9);
-	else
-		color = ftl_color_fade(z, palette.color_default);;
-	return (color);
-}
-*/
-
-/*
-int		ftl_get_color(int z, t_palette palette)
-{
-	int color;
-
-	z = sin(z) * 100;
-	if (z < 0)
-		color =  palette.color_0;
-	else if (z >= 0 && z < 10)
-		color =  palette.color_0;
-	else if (z >= 10)
-		color = palette.color_9;
-	else
-		color = palette.color_default;
-	return (color);
-}*/
-/*
-int		ftl_color_fade(int z, int z_max int color)
-{
-	int r1;
-	int g1;
-	int b1;
-	int dr;
-	int dg;
-	int db;
-
-	r1 = color;
-	g1 = color >> 8;
-	b1 = color >> 16;
-
-	dr = 0;
-	// dr = (z * 255) / 10;
-	dg = (z * 255) / 100;
-	db = (z * 255) / 100;
-
-	return (ftl_create_rgb(dr, dg, db));
-}
-*/
-/*
-int		ftl_color_fade(int z, int color1, int color2)
-{
-	int r1;
-	int g1;
-	int b1;
-
-	int r2;
-	int g2;
-	int b2;
-
-	int dr;
-	int dg;
-	int db;
-
-	r1 = color1;
-	g1 = color1 >> 8;
-	b1 = color1 >> 16;
-
-	r2 = color2;
-	g2 = color2 >> 8;
-	b2 = color2 >> 16;
-
-	dr = (r2 - r1) / 255;
-	dg = (g2 - g1) / 255;
-	db = (b2 - b1) / 255;
-
-	// dr = (z * 255) / 100;
-	// dg = (z * 255) / 100;
-	// db = (z * 255) / 100;
-
-	// dr = r1;
-	// dg = g1;
-	// db = b1;
-
-	// dr = r1  / 255;
-	// dg = 0;
-	// dg = g1 / 255;
-	// db = 0;
-	// db = b1 / 255;
-	return ftl_create_rgb(dr, dg, db);
-}
-*/

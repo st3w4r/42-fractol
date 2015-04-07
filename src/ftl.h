@@ -40,7 +40,7 @@
 # define KEY_MOUSE_UP 5
 # define KEY_MOUSE_DOWN 4
 # define KEY_MOUSE_LEFT 7
-# define KEY_MOUSE_RIGhT 6
+# define KEY_MOUSE_RIGHT 6
 
 # define KEY_0 29
 # define KEY_1 18
@@ -133,9 +133,6 @@ typedef struct	s_env {
 	int			ed;
 	int			win_size_h;
 	int			win_size_w;
-	// int			clic_zoom_x;
-	// int			clic_zoom_y;
-	// int		iter_max;
 	int			stop_motion;
 	t_fractal	*ftl_ptr;
 	t_fractal	*ftl_arr;
@@ -148,29 +145,27 @@ typedef struct	s_env {
 ** File: ft_error.c
 ** Desc: Error Gestion
 */
-void				ft_exit(void);
-void				ft_malloc_error(void);
-void				ft_error_str(char *str);
-void				ft_error_str_exit(char *str);
+void			ft_exit(void);
+void			ft_malloc_error(void);
+void			ft_error_str(char *str);
+void			ft_error_str_exit(char *str);
 
 /*
 **	Name: Draw
 **	File: fdf_draw.c
 **	Desc: All function Draw
 */
-// void			ftl_draw_fractal(t_env *e);
 void			ftl_draw_windows(char *title, t_env *e);
 void			ftl_draw_pixel_img(t_point *point, t_env *e, int color);
 void			ftl_draw_reload(t_env *e);
-// void				draw_reload(t_env *e);
 
 /*
 **	Name: Hook
 **	File: fdf_hook.c
 **	Desc: All Hook event
 */
-int				ftl_mouse_hook(int button, int x,int y, t_env *e);
-int				ftl_motion_hook(int x,int y, t_env *e);
+int				ftl_mouse_hook(int button, int x, int y, t_env *e);
+int				ftl_motion_hook(int x, int y, t_env *e);
 int				ftl_key_hook(int keycode, t_env *e);
 
 /*
@@ -178,7 +173,8 @@ int				ftl_key_hook(int keycode, t_env *e);
 **	File: fdf_cal.c
 **	Desc: All functions calcul
 */
-void			ftl_cal_apply(t_env *e, t_fractal *ftl, int (*f)(t_env*, t_fractal, t_point*));
+void			ftl_cal_apply(t_env *e, t_fractal *ftl,
+				int (*f)(t_env*, t_fractal, t_point*));
 
 /*
 **	Name: Fractal
@@ -198,6 +194,8 @@ int				ftl_fractal_b_ship(t_env *e, t_fractal ftl, t_point *point);
 */
 int				ftl_create_rgb(int r, int g, int b);
 void			ftl_change_fractol(char *name_ftl, t_env *e);
+void			ftl_key_hook_change_fractal(int keycode, t_env *e);
+void			ftl_key_hook_change_color(int keycode, t_env *e);
 
 /*
 **	Name: Color

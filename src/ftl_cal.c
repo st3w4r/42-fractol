@@ -12,7 +12,8 @@
 
 #include "ftl.h"
 
-void	ftl_cal_apply(t_env *e, t_fractal *ftl, int (*f)(t_env*, t_fractal, t_point*))
+void	ftl_cal_apply(t_env *e, t_fractal *ftl,
+		int (*f)(t_env*, t_fractal, t_point*))
 {
 	t_point	point;
 	int		color_pix;

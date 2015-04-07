@@ -31,9 +31,9 @@ void	ftl_fractal_init(t_env *e)
 				e->win_size_w / (0.6 - (-2.1)),
 				e->win_size_h / (1.2 - (-1.2)), 0, 0, 50, ftl_fractal_carpet};
 	//Params init Burnning Ship
-	e->ftl_arr[3] = (t_fractal){{0, 0}, {0, 0}, -2.1, 0.6, -1.2, 1.2,
-				e->win_size_w / (0.6 + 2.1),
-				e->win_size_h / (1.2 + 1.2), 0, 0, 50, ftl_fractal_b_ship};
+	e->ftl_arr[3] = (t_fractal){{0, 0}, {0, 0}, -1.1, 1.6, -1.7, 0.7,
+				e->win_size_w / (1.6 + 1.1),
+				e->win_size_h / (1.7 + 0.7), 0, 0, 50, ftl_fractal_b_ship};
 	//Init default fractal
 	e->ftl_ptr = &(e->ftl_arr[0]);
 }
@@ -113,10 +113,26 @@ int		ftl_fractal_b_ship(t_env *e, t_fractal ftl, t_point *point)
 			(ftl.iter < ftl.iter_max))
 	{
 		ftl.tmp = ftl.z.r;
-		ftl.z.r = ftl.z.r * ftl.z.r - ftl.z.i * ftl.z.i + ftl.c.r;
-		ftl.z.i = 2 * ftl.z.i * ftl.tmp + ftl.c.i;
+		ftl.z.r = ftl.z.r * ftl.z.r - ftl.z.i * ftl.z.i - ftl.c.r;
+		ftl.z.i = 2 * fabs(ftl.z.i) * fabs(ftl.tmp) + ftl.c.i;
 		ftl.iter += 1;
 	}
+
+	// t_complexe	c;
+	// t_complexe	z;
+	// ft_putstr("\nx1: ");
+	// ft_putnbr(ftl.x1);
+	// ft_putstr(" x2: ");
+	// ft_putnbr(ftl.x2);
+	// ft_putstr(" y1: ");
+	// ft_putnbr(ftl.y1);
+	// ft_putstr(" y2: ");
+	// ft_putnbr(ftl.y2);
+	// ft_putstr(" zoom_y: ");
+	// ft_putnbr(ftl.zoom_x);
+	// ft_putstr(" zoom_x: ");
+	// ft_putnbr(ftl.zoom_y);
+
 	if (ftl.iter == ftl.iter_max)
 		return (ftl_get_color(100, *(e->p_color_ptr)));
 	return (ftl_get_color((ftl.iter * ftl.iter) * 0.1, *(e->p_color_ptr)));

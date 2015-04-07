@@ -136,6 +136,9 @@ int				ftl_mouse_hook(int button, int x,int y, t_env *e)
 	return (0);
 }
 
+
+#include <stdio.h>
+
 int				ftl_motion_hook(int x, int y, t_env *e)
 {
 	if (x >= 0 && y >= 0 && x <= e->win_size_w && y <= e->win_size_h
@@ -155,7 +158,6 @@ int				ftl_motion_hook(int x, int y, t_env *e)
 		// ft_putstr("\n");
 		ftl_draw_reload(e);
 	}
-
 	return (0);
 }
 

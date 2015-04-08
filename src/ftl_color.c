@@ -33,7 +33,7 @@ void	ftl_color_init(t_env *e)
 		0x0B2C89, 0x1752B0, 0x88B4E3, 0xD4EBFB, 0xF1EABE, 0xF6CB5A, 0xFFAA00};
 	e->p_color_arr[3] = (t_palette){0xFFFFFF, 0xEEEEEE, 0x000000, 0xCCCCCC,
 		0xBBBBBB, 0xAAAAAA, 0x999999, 0x888888, 0x777777, 0x666666, 0x555555};
-	e->p_color_ptr = &(e->p_color_arr[0]);
+	e->p_color_ptr = &(e->p_color_arr[2]);
 }
 
 int		ftl_get_color(int z, t_palette palette)

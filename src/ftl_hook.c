@@ -17,27 +17,16 @@ static	void	ftl_key_hook_scale(int keycode, t_env *e)
 {
 	if (keycode == KEY_KP_PLUS)
 	{
-		// e->ftl_ptr->y2 += (((10 - (e->win_size_h / 2.0)) / e->win_size_h)) * 0.3;
-		// e->ftl_ptr->y1 += (((10 - (e->win_size_h / 2.0)) / e->win_size_h)) * 0.3;
-		// e->ftl_ptr->x2 += (((10 - (e->win_size_w / 2.0)) / e->win_size_w)) * 0.3;
-		// e->ftl_ptr->x1 += (((10 - (e->win_size_w / 2.0)) / e->win_size_w)) * 0.3;
-
-		// e->ftl_ptr->y2 -= 0.3;
-		// e->ftl_ptr->y1 -= 0.3;
-		// e->ftl_ptr->x2 -= 0.3;
-		// e->ftl_ptr->x1 -= 0.3;
-
 		e->ftl_ptr->x1 *= 0.75;
 		e->ftl_ptr->x2 *= 0.75;
 		e->ftl_ptr->y1 *= 0.75;
 		e->ftl_ptr->y2 *= 0.75;
 		e->ftl_ptr->zoom_x = e->win_size_w / (e->ftl_ptr->x2 - e->ftl_ptr->x1);
 		e->ftl_ptr->zoom_y = e->win_size_w / (e->ftl_ptr->y2 - e->ftl_ptr->y1);
-		// e->ftl_ptr->zoom_x = e->win_size_w / (e->ftl_ptr->x2 - e->ftl_ptr->x1);
-		// e->ftl_ptr->zoom_y = e->win_size_h / (e->ftl_ptr->y2 - e->ftl_ptr->y1);
 	}
 	else if (keycode == KEY_KP_MINUS)
 	{
+
 		e->ftl_ptr->x1 *= 1.25;
 		e->ftl_ptr->x2 *= 1.25;
 		e->ftl_ptr->y1 *= 1.25;
@@ -51,8 +40,8 @@ static	void	ftl_key_hook_translation(int keycode, t_env *e)
 {
 	if (keycode == KEY_UP)
 	{
-		e->ftl_ptr->y1 += 10 / e->ftl_ptr->zoom_x;
-		e->ftl_ptr->y2 += 10 / e->ftl_ptr->zoom_x;
+		e->ftl_ptr->y1 += 10 / e->ftl_ptr->zoom_y;
+		e->ftl_ptr->y2 += 10 / e->ftl_ptr->zoom_y;
 	}
 	else if (keycode == KEY_DOWN)
 	{
@@ -66,17 +55,22 @@ static	void	ftl_key_hook_translation(int keycode, t_env *e)
 	}
 	else if (keycode == KEY_RIGHT)
 	{
-		e->ftl_ptr->x1 -= 10 / e->ftl_ptr->zoom_y;
-		e->ftl_ptr->x2 -= 10 / e->ftl_ptr->zoom_y;
+		e->ftl_ptr->x1 -= 10 / e->ftl_ptr->zoom_x;
+		e->ftl_ptr->x2 -= 10 / e->ftl_ptr->zoom_x;
 	}
 }
 
+#include <stdio.h>
 int				ftl_mouse_hook(int button, int x, int y, t_env *e)
 {
 	(void)x;
 	(void)y;
-	if (button == KEY_MOUSE_UP)
+	if (button == KEY_MOUSE_UP || button == KEY_MOUSE_CLIC_L)
 	{
+		e->ftl_ptr->x1 += ((x - (e->win_size_w / 2.0)) / e->win_size_w);
+		e->ftl_ptr->x2 += ((x - (e->win_size_w / 2.0)) / e->win_size_w);
+		e->ftl_ptr->y1 += ((y - (e->win_size_h / 2.0)) / e->win_size_h);
+		e->ftl_ptr->y2 += ((y - (e->win_size_h / 2.0)) / e->win_size_h);
 		e->ftl_ptr->x1 *= 0.75;
 		e->ftl_ptr->x2 *= 0.75;
 		e->ftl_ptr->y1 *= 0.75;
@@ -84,8 +78,12 @@ int				ftl_mouse_hook(int button, int x, int y, t_env *e)
 		e->ftl_ptr->zoom_x = e->win_size_w / (e->ftl_ptr->x2 - e->ftl_ptr->x1);
 		e->ftl_ptr->zoom_y = e->win_size_h / (e->ftl_ptr->y2 - e->ftl_ptr->y1);
 	}
-	else if (button == KEY_MOUSE_DOWN)
+	else if (button == KEY_MOUSE_DOWN || button == KEY_MOUSE_CLIC_R)
 	{
+		e->ftl_ptr->x1 -= (((x - (e->win_size_w / 2.0)) / e->win_size_w));
+		e->ftl_ptr->x2 -= (((x - (e->win_size_w / 2.0)) / e->win_size_w));
+		e->ftl_ptr->y1 -= (((y - (e->win_size_h / 2.0)) / e->win_size_h));
+		e->ftl_ptr->y2 -= (((y - (e->win_size_h / 2.0)) / e->win_size_h));
 		e->ftl_ptr->x1 *= 1.25;
 		e->ftl_ptr->x2 *= 1.25;
 		e->ftl_ptr->y1 *= 1.25;

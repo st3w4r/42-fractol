@@ -12,7 +12,6 @@
 
 #include "ftl.h"
 
-#include <stdio.h>
 static	void	ftl_key_hook_scale(int keycode, t_env *e)
 {
 	if (keycode == KEY_KP_PLUS)
@@ -26,7 +25,6 @@ static	void	ftl_key_hook_scale(int keycode, t_env *e)
 	}
 	else if (keycode == KEY_KP_MINUS)
 	{
-
 		e->ftl_ptr->x1 *= 1.25;
 		e->ftl_ptr->x2 *= 1.25;
 		e->ftl_ptr->y1 *= 1.25;
@@ -60,11 +58,8 @@ static	void	ftl_key_hook_translation(int keycode, t_env *e)
 	}
 }
 
-#include <stdio.h>
 int				ftl_mouse_hook(int button, int x, int y, t_env *e)
 {
-	(void)x;
-	(void)y;
 	if (button == KEY_MOUSE_UP || button == KEY_MOUSE_CLIC_L)
 	{
 		e->ftl_ptr->x1 += ((x - (e->win_size_w / 2.0)) / e->win_size_w);
@@ -80,10 +75,6 @@ int				ftl_mouse_hook(int button, int x, int y, t_env *e)
 	}
 	else if (button == KEY_MOUSE_DOWN || button == KEY_MOUSE_CLIC_R)
 	{
-		e->ftl_ptr->x1 -= (((x - (e->win_size_w / 2.0)) / e->win_size_w));
-		e->ftl_ptr->x2 -= (((x - (e->win_size_w / 2.0)) / e->win_size_w));
-		e->ftl_ptr->y1 -= (((y - (e->win_size_h / 2.0)) / e->win_size_h));
-		e->ftl_ptr->y2 -= (((y - (e->win_size_h / 2.0)) / e->win_size_h));
 		e->ftl_ptr->x1 *= 1.25;
 		e->ftl_ptr->x2 *= 1.25;
 		e->ftl_ptr->y1 *= 1.25;

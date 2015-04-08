@@ -16,7 +16,6 @@
 # include "../minilibx_macos/mlx.h"
 # include <stdlib.h>
 # include <unistd.h>
-# include <stdio.h>
 # include <fcntl.h>
 # include <math.h>
 

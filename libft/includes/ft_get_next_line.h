@@ -18,7 +18,6 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
-# include <stdio.h>
 # include <ctype.h>
 
 # include "libft.h"

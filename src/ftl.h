@@ -178,13 +178,20 @@ void			ftl_cal_apply(t_env *e, t_fractal *ftl,
 /*
 **	Name: Fractal
 **	File: fdf_fractal.c
-**	Desc: All fucntions fractal
+**	Desc: Inti fractal, Fucntions fractal
 */
 void			ftl_fractal_init(t_env *e);
 int				ftl_fractal_mandelbrot(t_env *e, t_fractal ftl, t_point *point);
+int				ftl_fractal_mandelbar(t_env *e, t_fractal ftl, t_point *point);
 int				ftl_fractal_julia(t_env *e, t_fractal ftl, t_point *point);
-int				ftl_fractal_carpet(t_env *e, t_fractal ftl, t_point *point);
 int				ftl_fractal_b_ship(t_env *e, t_fractal ftl, t_point *point);
+
+/*
+**	Name: Fractal 2
+**	File: fdf_fractal.c
+**	Desc: Mpre fucntions fractal
+*/
+int				ftl_fractal_carpet(t_env *e, t_fractal ftl, t_point *point);
 
 /*
 **	Name: Helper

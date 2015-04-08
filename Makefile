@@ -29,6 +29,7 @@ SRC =	main.c \
 		ftl_draw.c \
 		ftl_cal.c \
 		ftl_fractal.c \
+		ftl_fractal_2.c \
 		ftl_helper.c \
 		ftl_color.c
 		# parse_arg.c \

@@ -27,6 +27,8 @@ void	ftl_change_fractol(char *name_ftl, t_env *e)
 		e->ftl_ptr = &(e->ftl_arr[2]);
 	else if (ft_strcmp("b_ship", name_ftl) == 0)
 		e->ftl_ptr = &(e->ftl_arr[3]);
+	else if (ft_strcmp("mandelbar", name_ftl) == 0)
+		e->ftl_ptr = &(e->ftl_arr[4]);
 }
 
 void	ftl_key_hook_change_fractal(int keycode, t_env *e)
@@ -39,6 +41,8 @@ void	ftl_key_hook_change_fractal(int keycode, t_env *e)
 		ftl_change_fractol("carpet", e);
 	else if (keycode == KEY_KP_4)
 		ftl_change_fractol("b_ship", e);
+	else if (keycode == KEY_KP_5)
+		ftl_change_fractol("mandelbar", e);
 }
 
 void	ftl_key_hook_change_color(int keycode, t_env *e)

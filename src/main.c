@@ -20,7 +20,8 @@ static int		ftl_expose_hook(t_env *e)
 
 static void		ftl_error_usage(void)
 {
-	ft_error_str_exit("usage: fractol [mandelbrot, julia, carpet, b_ship]\n");
+	ft_error_str_exit("usage: fractol [mandelbrot, julia, carpet, \
+b_ship, mandelbar]\n");
 }
 
 static void		ftl_check_params(int argc, char **argv)
@@ -30,7 +31,8 @@ static void		ftl_check_params(int argc, char **argv)
 	if (ft_strcmp("mandelbrot", argv[1]) != 0 &&
 		ft_strcmp("julia", argv[1]) != 0 &&
 		ft_strcmp("carpet", argv[1]) != 0 &&
-		ft_strcmp("b_ship", argv[1]) != 0)
+		ft_strcmp("b_ship", argv[1]) != 0 &&
+		ft_strcmp("mandelbar", argv[1]) != 0)
 		ftl_error_usage();
 }
 

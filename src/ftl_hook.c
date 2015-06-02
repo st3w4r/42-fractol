@@ -103,6 +103,9 @@ int				ftl_key_hook(int keycode, t_env *e)
 	if (keycode == KEY_ESC)
 	{
 		mlx_destroy_window(e->mlx, e->win);
+		free(e->ftl_arr);
+		free(e->p_color_arr);
+		free(e);
 		exit(0);
 	}
 	else if (keycode == KEY_KP_0)

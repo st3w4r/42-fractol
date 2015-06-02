@@ -57,7 +57,7 @@ int		ftl_fractal_mandelbrot(t_env *e, t_fractal ftl, t_point *point)
 int		ftl_fractal_mandelbar(t_env *e, t_fractal ftl, t_point *point)
 {
 	ftl.c.r = 1.0 * (point->x - e->win_size_w / 2)
-		 		/ (0.5 * ftl.zoom_ratio * e->win_size_w) + ftl.x1;
+				/ (0.5 * ftl.zoom_ratio * e->win_size_w) + ftl.x1;
 	ftl.c.i = (point->y - e->win_size_h / 2)
 				/ (0.5 * ftl.zoom_ratio * e->win_size_h) + ftl.y1;
 	while ((ftl.z.r * ftl.z.r + ftl.z.i * ftl.z.i) < 4 &&
@@ -77,7 +77,7 @@ int		ftl_fractal_mandelbar(t_env *e, t_fractal ftl, t_point *point)
 int		ftl_fractal_julia(t_env *e, t_fractal ftl, t_point *point)
 {
 	ftl.z.r = 1.0 * (point->x - e->win_size_w / 2)
-	 		/ (0.5 * ftl.zoom_ratio * e->win_size_w) + ftl.x1;
+			/ (0.5 * ftl.zoom_ratio * e->win_size_w) + ftl.x1;
 	ftl.z.i = (point->y - e->win_size_h / 2)
 			/ (0.5 * ftl.zoom_ratio * e->win_size_h) + ftl.y1;
 	while ((ftl.z.r * ftl.z.r + ftl.z.i * ftl.z.i) < 4 &&

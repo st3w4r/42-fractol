@@ -17,29 +17,30 @@ void	ftl_fractal_init(t_env *e)
 	if (!(e->ftl_arr = (t_fractal*)malloc(sizeof(t_fractal) * 5)))
 		ft_malloc_error();
 	e->ftl_ptr = NULL;
-	e->ftl_arr[0] = (t_fractal){{0, 0}, {0, 0}, -2.1, 0.6, -1.2, 1.2,
-				e->win_size_w / (0.6 + 2.1),
-				e->win_size_h / (1.2 + 1.2), 0, 0, 50, ftl_fractal_mandelbrot};
-	e->ftl_arr[1] = (t_fractal){{0.285, 0.01}, {0, 0},
-					-1.5, 1.5, -1.2, 1.2,
-				e->win_size_w / (1.5 + 1.5),
-				e->win_size_h / (1.2 + 1.2), 0, 0, 10, ftl_fractal_julia};
+	e->ftl_arr[0] = (t_fractal){{0, 0}, {0, 0}, -0.9, 0, 0, 0,
+				e->win_size_w / (0.6 + 2.1), e->win_size_h / (1.2 + 1.2),
+				0.5, 0, 0, 50, ftl_fractal_mandelbrot};
+	e->ftl_arr[1] = (t_fractal){{0.285, 0.01}, {0, 0}, 0, 0, 0, 0,
+				e->win_size_w / (1.5 + 1.5), e->win_size_h / (1.2 + 1.2),
+				0.5, 0, 0, 10, ftl_fractal_julia};
 	e->ftl_arr[2] = (t_fractal){{0, 0}, {0, 0}, -2.1, 0.6, -1.2, 1.2,
-				e->win_size_w / (0.6 - (-2.1)),
-				e->win_size_h / (1.2 - (-1.2)), 0, 0, 50, ftl_fractal_carpet};
-	e->ftl_arr[3] = (t_fractal){{0, 0}, {0, 0}, -1.1, 1.6, -1.7, 0.7,
-				e->win_size_w / (1.6 + 1.1),
-				e->win_size_h / (1.7 + 0.7), 0, 0, 50, ftl_fractal_b_ship};
-	e->ftl_arr[4] = (t_fractal){{0, 0}, {0, 0}, -2.1, 0.6, -1.2, 1.2,
-				e->win_size_w / (0.6 + 2.1),
-				e->win_size_h / (1.2 + 1.2), 0, 0, 50, ftl_fractal_mandelbar};
+				e->win_size_w / (0.6 - (-2.1)), e->win_size_h / (1.2 - (-1.2)),
+				1, 0, 0, 50, ftl_fractal_carpet};
+	e->ftl_arr[3] = (t_fractal){{0, 0}, {0, 0}, 0, 0, 0, 0,
+				e->win_size_w / (1.6 + 1.1), e->win_size_h / (1.7 + 0.7),
+				0.5, 0, 0, 50, ftl_fractal_b_ship};
+	e->ftl_arr[4] = (t_fractal){{0, 0}, {0, 0}, 0, 0, 0, 0,
+				e->win_size_w / (0.6 + 2.1), e->win_size_h / (1.2 + 1.2),
+				0.5, 0, 0, 50, ftl_fractal_mandelbar};
 	e->ftl_ptr = &(e->ftl_arr[0]);
 }
 
 int		ftl_fractal_mandelbrot(t_env *e, t_fractal ftl, t_point *point)
 {
-	ftl.c.r = point->x / ftl.zoom_x + ftl.x1;
-	ftl.c.i = point->y / ftl.zoom_y + ftl.y1;
+	ftl.c.r = 1.0 * (point->x - e->win_size_w / 2)
+				/ (0.5 * ftl.zoom_ratio * e->win_size_w) + ftl.x1;
+	ftl.c.i = (point->y - e->win_size_h / 2)
+				/ (0.5 * ftl.zoom_ratio * e->win_size_h) + ftl.y1;
 	while ((ftl.z.r * ftl.z.r + ftl.z.i * ftl.z.i) < 4 &&
 			(ftl.iter < ftl.iter_max))
 	{
@@ -55,8 +56,10 @@ int		ftl_fractal_mandelbrot(t_env *e, t_fractal ftl, t_point *point)
 
 int		ftl_fractal_mandelbar(t_env *e, t_fractal ftl, t_point *point)
 {
-	ftl.c.r = point->x / ftl.zoom_x + ftl.x1;
-	ftl.c.i = point->y / ftl.zoom_y + ftl.y1;
+	ftl.c.r = 1.0 * (point->x - e->win_size_w / 2)
+		 		/ (0.5 * ftl.zoom_ratio * e->win_size_w) + ftl.x1;
+	ftl.c.i = (point->y - e->win_size_h / 2)
+				/ (0.5 * ftl.zoom_ratio * e->win_size_h) + ftl.y1;
 	while ((ftl.z.r * ftl.z.r + ftl.z.i * ftl.z.i) < 4 &&
 			(ftl.iter < ftl.iter_max))
 	{
@@ -73,8 +76,10 @@ int		ftl_fractal_mandelbar(t_env *e, t_fractal ftl, t_point *point)
 
 int		ftl_fractal_julia(t_env *e, t_fractal ftl, t_point *point)
 {
-	ftl.z.r = point->x / ftl.zoom_x + ftl.x1;
-	ftl.z.i = point->y / ftl.zoom_y + ftl.y1;
+	ftl.z.r = 1.0 * (point->x - e->win_size_w / 2)
+	 		/ (0.5 * ftl.zoom_ratio * e->win_size_w) + ftl.x1;
+	ftl.z.i = (point->y - e->win_size_h / 2)
+			/ (0.5 * ftl.zoom_ratio * e->win_size_h) + ftl.y1;
 	while ((ftl.z.r * ftl.z.r + ftl.z.i * ftl.z.i) < 4 &&
 			(ftl.iter < ftl.iter_max))
 	{
@@ -91,8 +96,10 @@ int		ftl_fractal_julia(t_env *e, t_fractal ftl, t_point *point)
 int		ftl_fractal_b_ship(t_env *e, t_fractal ftl, t_point *point)
 {
 	(void)e;
-	ftl.c.r = point->x / ftl.zoom_x + ftl.x1;
-	ftl.c.i = point->y / ftl.zoom_y + ftl.y1;
+	ftl.c.r = 1.0 * (point->x - e->win_size_w / 2)
+				/ (0.5 * ftl.zoom_ratio * e->win_size_w) + ftl.x1;
+	ftl.c.i = (point->y - e->win_size_h / 2)
+				/ (0.5 * ftl.zoom_ratio * e->win_size_h) + ftl.y1;
 	while ((ftl.z.r * ftl.z.r + ftl.z.i * ftl.z.i) < 4 &&
 			(ftl.iter < ftl.iter_max))
 	{

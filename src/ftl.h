@@ -116,6 +116,7 @@ typedef struct	s_fractal {
 	double		y2;
 	double		zoom_x;
 	double		zoom_y;
+	double		zoom_ratio;
 	double		tmp;
 	int			iter;
 	int			iter_max;

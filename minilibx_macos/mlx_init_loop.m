@@ -34,14 +34,13 @@
   win = mlx_ptr->win_list;
   while (win)
     {
-      if (win->nb_flush > 0)
+      if (win->nb_flush > 0 && win->pixmgt)
 	{
 	  [(id)win->winid selectGLContext];
 	  [(id)win->winid mlx_gl_draw];
 	  glFlush();
 	  win->nb_flush = 0;
 	}
-      win->nb_flush_prev = win->nb_flush;
       win = win->next;
     }
   [self performSelector:@selector(do_loop_hook) withObject:nil afterDelay:0.0];
@@ -90,8 +89,8 @@ void *mlx_init()
 
   new_mlx->font->vertexes[2] = FONT_WIDTH;
   new_mlx->font->vertexes[4] = FONT_WIDTH;
-  new_mlx->font->vertexes[5] = -FONT_HEIGHT+1;
-  new_mlx->font->vertexes[7] = -FONT_HEIGHT+1;
+  new_mlx->font->vertexes[5] = -FONT_HEIGHT-1;
+  new_mlx->font->vertexes[7] = -FONT_HEIGHT-1;
 
   return ((void *)new_mlx);
 }
@@ -106,6 +105,8 @@ void mlx_loop(mlx_ptr_t *mlx_ptr)
 
 void mlx_pixel_put(mlx_ptr_t *mlx_ptr, mlx_win_list_t *win_ptr, int x, int y, int color)
 {
+  if (!win_ptr->pixmgt)
+    return ;
   [(id)(win_ptr->winid) selectGLContext];
   [(id)(win_ptr->winid) pixelPutColor:color X:x Y:y];
   win_ptr->nb_flush ++;
@@ -119,9 +120,12 @@ int     mlx_do_sync(mlx_ptr_t *mlx_ptr)
   win = mlx_ptr->win_list;
   while (win)
     {
-      [(id)(win->winid) selectGLContext];
-      [(id)(win->winid) mlx_gl_draw];
-      glFlush();
+      if (win->pixmgt)
+	{
+	  [(id)(win->winid) selectGLContext];
+	  [(id)(win->winid) mlx_gl_draw];
+	  glFlush();
+	}
       win = win->next;
     }
   return (0);

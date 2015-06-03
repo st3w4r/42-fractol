@@ -10,9 +10,8 @@
 #include "mlx_new_window.h"
 
 
-NSOpenGLPixelFormatAttribute attrs[] =
+NSOpenGLPixelFormatAttribute pfa_attrs[] =
   {
-    //    NSOpenGLPFAWindow,
     NSOpenGLPFADepthSize, 32,
     0
   };
@@ -238,6 +237,39 @@ int get_mouse_button(NSEventType eventtype)
 }
 
 
+- (void) mouseDragged:(NSEvent *)theEvent
+{
+  NSPoint thepoint;
+
+  thepoint = [theEvent locationInWindow];
+  //  printf("Mouse moved  pos: %f, %f\n", thepoint.x, thepoint.y);
+  if (event_funct[6] != NULL)
+    event_funct[6]((int)(thepoint.x), size_y - 1 - (int)(thepoint.y), event_param[6]);
+}
+
+
+- (void) rightMouseDragged:(NSEvent *)theEvent
+{
+  NSPoint thepoint;
+
+  thepoint = [theEvent locationInWindow];
+  //  printf("Mouse moved  pos: %f, %f\n", thepoint.x, thepoint.y);
+  if (event_funct[6] != NULL)
+    event_funct[6]((int)(thepoint.x), size_y - 1 - (int)(thepoint.y), event_param[6]);
+}
+
+
+- (void) otherMouseDragged:(NSEvent *)theEvent
+{
+  NSPoint thepoint;
+
+  thepoint = [theEvent locationInWindow];
+  //  printf("Mouse moved  pos: %f, %f\n", thepoint.x, thepoint.y);
+  if (event_funct[6] != NULL)
+    event_funct[6]((int)(thepoint.x), size_y - 1 - (int)(thepoint.y), event_param[6]);
+}
+
+
 - (void) scrollWheel:(NSEvent *)theEvent
 {
   NSPoint thepoint;
@@ -277,12 +309,19 @@ int get_mouse_button(NSEventType eventtype)
   if (event_funct[17] != NULL)
     event_funct[17](event_param[17]);
 }
+
+- (void) deminiaturizeNotification:(NSNotification *)note
+{
+  //  if (event_funct[??] != NULL)
+  //    event_funct[??](event_param[??]);
+  [self exposeNotification:note];
+}
 @end
 
 
 @implementation MlxWin
 
-- (id) initWithRect: (NSRect)rect andTitle: (NSString *)title
+- (id) initWithRect: (NSRect)rect andTitle: (NSString *)title pfaAttrs: (NSOpenGLPixelFormatAttribute *)attrs
 {
   NSOpenGLPixelFormat* pixFmt = [[NSOpenGLPixelFormat alloc] initWithAttributes:attrs];
 
@@ -301,17 +340,15 @@ int get_mouse_button(NSEventType eventtype)
       ctx = [[NSOpenGLContext alloc] initWithFormat:pixFmt shareContext:[NSOpenGLContext currentContext]]; //other_context];
       [ctx setView:self];
       [ctx makeCurrentContext];
-      //      printf(" and new one: %p\n", [NSOpenGLContext currentContext]);
-      //      id menu = [[NSMenu alloc] initWithTitle: @"titi"];
-      //      [NSApp setMainMenu: menu];
-      //      [NSMenu setMenuBarVisible: YES];
       [self setNextKeyView:self];
+
       //      [[NSNotificationCenter defaultCenter] addObserver:win selector:@selector(exposeNotification:) name:@"NSWindowDidExposeNotification" object:nil];
       [[NSNotificationCenter defaultCenter] addObserver:win selector:@selector(exposeNotification:) name:@"NSWindowDidBecomeKeyNotification" object:win];
+      [[NSNotificationCenter defaultCenter] addObserver:win selector:@selector(deminiaturizeNotification:) name:@"NSWindowDidDeminiaturizeNotification" object:win];
       [[NSNotificationCenter defaultCenter] addObserver:win selector:@selector(closeNotification:) name:@"NSWindowWillCloseNotification" object:win];
-      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ctxNeedsUpdate:)
-					    name:NSViewGlobalFrameDidChangeNotification
-					    object:nil];
+      // [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ctxNeedsUpdate:)
+      //				    name:NSViewGlobalFrameDidChangeNotification
+      //				    object:nil];
 
       size_x = rect.size.width;
       size_y = rect.size.height;
@@ -320,73 +357,11 @@ int get_mouse_button(NSEventType eventtype)
       glClear(GL_COLOR_BUFFER_BIT);
       glFlush();
 
-      glDisable(GL_DEPTH_TEST);
-      //      glEnable(GL_BLEND);
-      //      glBlendFunc(GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA);  // src alpha 0xFF : keep dst
-      //      glBlendEquation(GL_FUNC_ADD);
-
       [win orderFrontRegardless];
       [win makeKeyWindow];
       //[win makeKeyAndOrderFront:nil];
-
       // BOOL r = [win isKeyWindow];
       //  if (r==YES) printf("keywindow ok\n"); else printf("keywindow KO\n");
-
-      glGenBuffers(1, &pixel_vbuffer);
-      glBindBuffer(GL_ARRAY_BUFFER, pixel_vbuffer);
-      glBufferData(GL_ARRAY_BUFFER, sizeof(pixel_vertexes), pixel_vertexes, GL_DYNAMIC_DRAW); // 4 points buff
-      // pixel_ptr = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
-
-      glGenTextures(1, &pixel_texture);
-      glBindTexture(GL_TEXTURE_2D, pixel_texture);
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S,     GL_CLAMP_TO_EDGE);
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T,     GL_CLAMP_TO_EDGE);
-      pixtexbuff = malloc(sizeof(unsigned int)*size_x*size_y);
-      pixel_nb = size_x*size_y;
-      while (pixel_nb--) pixtexbuff[pixel_nb] = 0xFF000000;
-      pixel_nb = 0;
-      glTexImage2D(
-		   GL_TEXTURE_2D, 0,           /* target, level of detail */
-		   GL_RGBA8,                    /* internal format */
-		   size_x, size_y, 0,           /* width, height, border */
-		   GL_BGRA, GL_UNSIGNED_BYTE,   /* external format, type */
-		   pixtexbuff                   /* pixels */
-		   );
-      //      printf("pix tex err? 0x%x\n", glGetError());
-
-      if (mlx_shaders(&glsl))
-	{ 
-	  [pixFmt release];
-	  return ((void *)0);
-	}
-
-      glUseProgram(glsl.pixel_program);
-      glsl.loc_pixel_texture = glGetUniformLocation(glsl.pixel_program, "texture");
-      //glsl.loc_pixel_winhalfsize = glGetUniformLocation(glsl.pixel_program, "winhalfsize");
-      glsl.loc_pixel_position = glGetAttribLocation(glsl.pixel_program, "position");
-      //      printf("err? 0x%x\n", glGetError());
-
-      glUseProgram(glsl.image_program);
-      glsl.loc_image_texture = glGetUniformLocation(glsl.image_program, "texture");
-      glsl.loc_image_pos = glGetUniformLocation(glsl.image_program, "imagepos");
-      glsl.loc_image_size = glGetUniformLocation(glsl.image_program, "imagesize");
-      glsl.loc_image_winhalfsize = glGetUniformLocation(glsl.image_program, "winhalfsize");
-      glsl.loc_image_position = glGetAttribLocation(glsl.image_program, "position");
-      //      printf("err? 0x%x\n", glGetError());
-
-      glUseProgram(glsl.font_program);
-      glsl.loc_font_texture = glGetUniformLocation(glsl.font_program, "texture");
-      glsl.loc_font_color = glGetUniformLocation(glsl.font_program, "color");
-      glsl.loc_font_posinwin = glGetUniformLocation(glsl.font_program, "fontposinwin");
-      glsl.loc_font_posinatlas = glGetUniformLocation(glsl.font_program, "fontposinatlas");
-      glsl.loc_font_atlassize = glGetUniformLocation(glsl.font_program, "fontatlassize");
-      glsl.loc_font_winhalfsize = glGetUniformLocation(glsl.font_program, "winhalfsize");
-      glsl.loc_font_position = glGetAttribLocation(glsl.font_program, "position");
-      //      printf("err? 0x%x\n", glGetError());
-
-      glFlush();
 
       // Window controller subclass to set title
       // NSWindowController* windowController = [[NSWindowController alloc] initWithWindow:win];
@@ -398,14 +373,74 @@ int get_mouse_button(NSEventType eventtype)
       //      BOOL r = [win makeFirstResponder:nil];
       //      if (r==YES) printf("responder ok\n"); else printf("responder KO\n");
 
+      [pixFmt release];
     }
-  [pixFmt release];
   return (self);
+}
+
+- (int)	pixel_management
+{
+  bzero(&glsl, sizeof(glsl));   // so gldelete[shader/program] go silent on error.
+
+  glDisable(GL_DEPTH_TEST);
+  glGenBuffers(1, &pixel_vbuffer);
+  glBindBuffer(GL_ARRAY_BUFFER, pixel_vbuffer);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(pixel_vertexes), pixel_vertexes, GL_DYNAMIC_DRAW); // 4 points buff
+  // pixel_ptr = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
+
+  glGenTextures(1, &pixel_texture);
+  glBindTexture(GL_TEXTURE_2D, pixel_texture);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S,     GL_CLAMP_TO_EDGE);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T,     GL_CLAMP_TO_EDGE);
+  pixtexbuff = malloc(sizeof(unsigned int)*size_x*size_y);
+  pixel_nb = size_x*size_y;
+  while (pixel_nb--) pixtexbuff[pixel_nb] = 0xFF000000;
+  pixel_nb = 0;
+  glTexImage2D(
+	       GL_TEXTURE_2D, 0,           /* target, level of detail */
+	       GL_RGBA8,                    /* internal format */
+	       size_x, size_y, 0,           /* width, height, border */
+	       GL_BGRA, GL_UNSIGNED_BYTE,   /* external format, type */
+	       pixtexbuff                   /* pixels */
+	       );
+  //      printf("pix tex err? 0x%x\n", glGetError());
+
+  if (mlx_shaders(&glsl))
+    return (0);
+
+  glUseProgram(glsl.pixel_program);
+  glsl.loc_pixel_texture = glGetUniformLocation(glsl.pixel_program, "texture");
+  //glsl.loc_pixel_winhalfsize = glGetUniformLocation(glsl.pixel_program, "winhalfsize");
+  glsl.loc_pixel_position = glGetAttribLocation(glsl.pixel_program, "position");
+  //      printf("err? 0x%x\n", glGetError());
+
+  glUseProgram(glsl.image_program);
+  glsl.loc_image_texture = glGetUniformLocation(glsl.image_program, "texture");
+  glsl.loc_image_pos = glGetUniformLocation(glsl.image_program, "imagepos");
+  glsl.loc_image_size = glGetUniformLocation(glsl.image_program, "imagesize");
+  glsl.loc_image_winhalfsize = glGetUniformLocation(glsl.image_program, "winhalfsize");
+  glsl.loc_image_position = glGetAttribLocation(glsl.image_program, "position");
+  //      printf("err? 0x%x\n", glGetError());
+
+  glUseProgram(glsl.font_program);
+  glsl.loc_font_texture = glGetUniformLocation(glsl.font_program, "texture");
+  glsl.loc_font_color = glGetUniformLocation(glsl.font_program, "color");
+  glsl.loc_font_posinwin = glGetUniformLocation(glsl.font_program, "fontposinwin");
+  glsl.loc_font_posinatlas = glGetUniformLocation(glsl.font_program, "fontposinatlas");
+  glsl.loc_font_atlassize = glGetUniformLocation(glsl.font_program, "fontatlassize");
+  glsl.loc_font_winhalfsize = glGetUniformLocation(glsl.font_program, "winhalfsize");
+  glsl.loc_font_position = glGetAttribLocation(glsl.font_program, "position");
+  //      printf("err? 0x%x\n", glGetError());
+
+  glFlush();
+  return (1);
 }
 
 - (void) ctxNeedsUpdate
 {
-  printf("Context update\n");
+  // printf("Context update\n");
   [ctx update];
 }
 
@@ -416,6 +451,11 @@ int get_mouse_button(NSEventType eventtype)
       //      printf("ctx: %p => %p\n", [NSOpenGLContext currentContext], [self openGLContext]);
       [[self openGLContext] makeCurrentContext];
     }
+}
+
+- (void) flushGLContext
+{
+  [[self openGLContext] flushBuffer];
 }
 
 - (NSOpenGLContext *) ctx
@@ -435,10 +475,8 @@ int get_mouse_button(NSEventType eventtype)
     [self mlx_gl_draw];
 }
 
-- (void) destroyMe
+- (void) destroyPixelManagement
 {
-  [[NSNotificationCenter defaultCenter] removeObserver:win];
-  [[NSNotificationCenter defaultCenter] removeObserver:self];
   free(pixtexbuff);
   [self selectGLContext];
   glDeleteBuffers(1, &pixel_vbuffer);
@@ -449,6 +487,13 @@ int get_mouse_button(NSEventType eventtype)
   glDeleteShader(glsl.pixel_fshader);
   glDeleteShader(glsl.image_vshader);
   glDeleteShader(glsl.image_fshader);
+}
+
+
+- (void) destroyMe
+{
+  [[NSNotificationCenter defaultCenter] removeObserver:win];
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
   [ctx release];
   [win close];
   [self release];
@@ -482,7 +527,7 @@ int get_mouse_button(NSEventType eventtype)
   glUniform1i(glsl.loc_image_texture, 0);
 
   glUniform2f(glsl.loc_image_winhalfsize, size_x/2, size_y/2);
-  glUniform2f(glsl.loc_image_pos, x, size_y - 1 - y);
+  glUniform2f(glsl.loc_image_pos, x, size_y - y);
   glUniform2f(glsl.loc_image_size, img->width, -img->height);
 
   glBindBuffer(GL_ARRAY_BUFFER, imgctx->vbuffer);
@@ -581,17 +626,21 @@ void *mlx_new_window(mlx_ptr_t *mlx_ptr, int size_x, int size_y, char *title)
   newwin->img_list = NULL;
   newwin->next = mlx_ptr->win_list;
   newwin->nb_flush = 0;
-  newwin->nb_flush_prev = 0;
+  newwin->pixmgt = 1;
   mlx_ptr->win_list = newwin;
 
   NSRect windowRect = NSMakeRect(100, 100, size_x, size_y);
   str = [NSString stringWithCString:title encoding:NSASCIIStringEncoding];
-  //  newwin->winid = [[MlxWin alloc] initWithRect:windowRect andTitle:str andContext:(newwin->next?newwin->next->winid:nil)];
-  newwin->winid = [[MlxWin alloc] initWithRect:windowRect andTitle:str];
-  //  [str release];
-
+  newwin->winid = [[MlxWin alloc] initWithRect:windowRect andTitle:str pfaAttrs:pfa_attrs];
+  if (newwin->winid)
+    if (![(id)(newwin->winid) pixel_management])
+      {
+	[(id)(newwin->winid) destroyPixelManagement];
+	[(id)(newwin->winid) destroyMe];
+      }
   return ((void *)newwin);
 }
+
 
 void mlx_clear_window(mlx_ptr_t *mlx_ptr, mlx_win_list_t *win_ptr)
 {
@@ -665,19 +714,24 @@ int     mlx_destroy_window(mlx_ptr_t *mlx_ptr, mlx_win_list_t *win_to_del)
     }
   mlx_ptr->win_list = first.next;
 
-  [(id)(win_to_del->winid) selectGLContext];
-  ctx = win_to_del->img_list;
-  while (ctx)
+  if (win_to_del->pixmgt)
     {
-      glDeleteBuffers(1, &(ctx->vbuffer));
-      glDeleteTextures(1, &(ctx->texture));
-      ctx2 = ctx;
-      ctx = ctx->next;
-      free(ctx2);
+      [(id)(win_to_del->winid) selectGLContext];
+      ctx = win_to_del->img_list;   // should be null anyway if no pixel management
+      while (ctx)
+	{
+	  glDeleteBuffers(1, &(ctx->vbuffer));
+	  glDeleteTextures(1, &(ctx->texture));
+	  ctx2 = ctx;
+	  ctx = ctx->next;
+	  free(ctx2);
+	}
+      [(id)(win_to_del->winid) destroyPixelManagement];
     }
   [(id)(win_to_del->winid) destroyMe];
   free(win_to_del);
 
-  printf("destroy window done.\n");
+  //  printf("destroy window done.\n");
+  mlx_do_sync(mlx_ptr);
   return (0);
 }

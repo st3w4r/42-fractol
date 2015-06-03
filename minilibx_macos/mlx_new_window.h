@@ -31,6 +31,7 @@
   NSWindowEvent		*win;
   NSOpenGLContext	*ctx;
   glsl_info_t		glsl;
+  int			openglwin;
 
   int			size_x;
   int			size_y;
@@ -41,8 +42,9 @@
   unsigned int		*pixtexbuff;
 }
 
-- (id) initWithRect: (NSRect)rect andTitle: (NSString *)title;
+- (id) initWithRect: (NSRect)rect andTitle: (NSString *)title pfaAttrs: (NSOpenGLPixelFormatAttribute *)attrs;
 - (void) selectGLContext;
+- (void) flushGLContext;
 - (void) pixelPutColor: (int)color X:(int)x Y:(int)y;
 - (void) mlx_gl_draw;
 - (void) mlx_gl_draw_img:(mlx_img_list_t *)img andCtx:(mlx_img_ctx_t *)imgctx andX:(int)x andY:(int)y;
@@ -50,4 +52,5 @@
 - (NSOpenGLContext *) ctx;
 - (void) setEvent:(int)event andFunc:(func_t)func andParam:(void *)param;
 - (void) setKeyRepeat:(int)mode;
+- (void) ctxNeedsUpdate;
 @end

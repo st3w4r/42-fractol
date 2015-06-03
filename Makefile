@@ -17,7 +17,6 @@ PATH_INC = ./libft/includes/
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -Ofast -I $(PATH_INC)
-# CFLAGS = -Ofast -I $(PATH_INC) -g
 
 LIBS = -lm -L libft/ -lft -L minilibx_macos/ -lmlx -framework OpenGL -framework AppKit
 
@@ -32,9 +31,6 @@ SRC =	main.c \
 		ftl_fractal_2.c \
 		ftl_helper.c \
 		ftl_color.c
-		# parse_arg.c \
-		# ftl_cal_matrice.c \
-		# ftl_matrice.c \
 
 OBJ = $(addprefix $(PATH_SRC), $(SRC:.c=.o))
 
